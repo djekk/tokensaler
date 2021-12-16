@@ -1,8 +1,6 @@
 package com.syqu.shop;
 
-import com.syqu.shop.domain.Category;
 import com.syqu.shop.domain.Product;
-import com.syqu.shop.repository.CategoryRepository;
 import com.syqu.shop.service.ProductService;
 import com.syqu.shop.domain.Customer;
 import com.syqu.shop.service.CustomerService;
@@ -56,10 +54,10 @@ public class StartupData implements CommandLineRunner {
     }
 
     private void exampleProducts(){
-        final String NAME = "Example Name";
-        final String IMAGE_URL = "https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX7389458.jpg";
-        final String DESCRIPTION = "Example Description";
-        final BigDecimal PRICE = BigDecimal.valueOf(10);
+        final String NAME = "Token";
+        final String IMAGE_URL = "images/token.png";
+        final String DESCRIPTION = "";
+        final BigDecimal PRICE = BigDecimal.valueOf(1);
 
         Product product1 = new Product();
 

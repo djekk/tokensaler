@@ -8,7 +8,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>Token Saler</name>
+    <name>Token Sale</name>
     <description>E-commerce shop</description>
 
     <parent>

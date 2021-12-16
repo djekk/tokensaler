@@ -56,9 +56,6 @@ public class UserValidator implements Validator {
         if (!user.getPasswordConfirm().equals(user.getPassword())) {
             errors.rejectValue("passwordConfirm", "register.error.diff_password");
         }
-        //Age needs to be higher than 13
-        if (user.getAge() <= 13){
-            errors.rejectValue("age", "register.error.age_size");
-        }
+
     }
 }
