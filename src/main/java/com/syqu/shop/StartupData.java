@@ -4,8 +4,8 @@ import com.syqu.shop.domain.Category;
 import com.syqu.shop.domain.Product;
 import com.syqu.shop.repository.CategoryRepository;
 import com.syqu.shop.service.ProductService;
-import com.syqu.shop.domain.User;
-import com.syqu.shop.service.UserService;
+import com.syqu.shop.domain.Customer;
+import com.syqu.shop.service.CustomerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,13 +16,13 @@ import java.math.BigDecimal;
 
 @Component
 public class StartupData implements CommandLineRunner {
-    private final UserService userService;
+    private final CustomerService userService;
     private final ProductService productService;
     private final CategoryRepository categoryRepository;
     private static final Logger logger = LoggerFactory.getLogger(StartupData.class);
 
     @Autowired
-    public StartupData(UserService userService, ProductService productService, CategoryRepository categoryRepository) {
+    public StartupData(CustomerService userService, ProductService productService, CategoryRepository categoryRepository) {
         this.userService = userService;
         this.productService = productService;
         this.categoryRepository = categoryRepository;
@@ -37,7 +37,7 @@ public class StartupData implements CommandLineRunner {
     }
 
     private void userAccount(){
-        User user = new User();
+        Customer user = new Customer();
 
         user.setUsername("user");
         user.setPassword("user");
@@ -49,7 +49,7 @@ public class StartupData implements CommandLineRunner {
     }
 
     private void adminAccount(){
-        User admin = new User();
+        Customer admin = new Customer();
 
         admin.setUsername("admin");
         admin.setPassword("admin");

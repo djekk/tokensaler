@@ -1,7 +1,7 @@
 package com.syqu.shop.repository;
 
 import com.syqu.shop.creator.UserCreator;
-import com.syqu.shop.domain.User;
+import com.syqu.shop.domain.Customer;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ public class UserRepositoryTests {
     private TestEntityManager entityManager;
 
     @Autowired
-    private UserRepository userRepository;
+    private CustomerRepository userRepository;
 
     @Test
     public void checkIfUserRepositoryIsNotNull(){
@@ -32,42 +32,36 @@ public class UserRepositoryTests {
 
     @Test
     public void checkIfParamsAreTheSame(){
-        User testObject = UserCreator.createTestUser();
+        Customer testObject = UserCreator.createTestUser();
         entityManager.persistAndFlush(testObject);
 
-        User found = userRepository.findByUsername(testObject.getUsername());
+        Customer found = userRepository.findByUsername(testObject.getUsername());
 
         assertThat(found.getId()).isEqualTo(testObject.getId());
         assertThat(found.getUsername()).isEqualTo(testObject.getUsername());
         assertThat(found.getPassword()).isEqualTo(testObject.getPassword());
         assertThat(found.getPasswordConfirm()).isEqualTo(found.getPassword());
         assertThat(found.getPasswordConfirm()).isEqualTo(testObject.getPasswordConfirm());
-        assertThat(found.getFirstName()).isEqualTo(testObject.getFirstName());
-        assertThat(found.getLastName()).isEqualTo(testObject.getLastName());
         assertThat(found.getEmail()).isEqualTo(testObject.getEmail());
-        assertThat(found.getAge()).isEqualTo(testObject.getAge());
-        assertThat(found.getBalance()).isEqualTo(testObject.getBalance());
-        assertThat(found.getCity()).isEqualTo(testObject.getCity());
-        assertThat(found.getGender()).isEqualTo(testObject.getGender());
     }
 
     @Test
     public void whenFindByEmailThenReturnUser(){
-        User testObject = UserCreator.createTestUser();
+        Customer testObject = UserCreator.createTestUser();
 
         entityManager.persistAndFlush(testObject);
 
-        User found = userRepository.findByEmail(testObject.getEmail());
+        Customer found = userRepository.findByEmail(testObject.getEmail());
         assertThat(found.getEmail()).isEqualTo(testObject.getEmail());
     }
 
     @Test
     public void whenFindByIdThenReturnUser(){
-        User testObject = UserCreator.createTestUser();
+        Customer testObject = UserCreator.createTestUser();
 
         entityManager.persistAndFlush(testObject);
 
-        User found = userRepository.findById(testObject.getId());
+        Customer found = userRepository.findById(testObject.getId());
         assertThat(found.getId()).isEqualTo(testObject.getId());
     }
 

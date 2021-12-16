@@ -10,8 +10,8 @@ import java.math.BigDecimal;
 
 @Data
 @Entity
-@Table(name = "user")
-public class User {
+@Table(name = "customer")
+public class Customer {
 
     @Column(name = "id")
     @Id
@@ -36,25 +36,4 @@ public class User {
     @NotEmpty
     @NotNull
     private String passwordConfirm;
-
-    @Column(name = "first_name")
-    private String firstName;
-
-    @Column(name = "last_name")
-    private String lastName;
-
-    @Column(name = "age")
-    private int age;
-
-    @Column(name = "city")
-    private String city;
-
-    @Column(name = "gender")
-    @NotEmpty
-    @NotNull
-    private String gender;
-
-    @Column(name = "balance")
-    private BigDecimal balance;
-
 }

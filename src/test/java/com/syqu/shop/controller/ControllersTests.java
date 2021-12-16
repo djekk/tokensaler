@@ -19,7 +19,7 @@ public class ControllersTests {
     @Autowired
     RegisterController registerController;
     @Autowired
-    UserController userController;
+    CustomerController userController;
     @Autowired
     ProductController productController;
     @Autowired

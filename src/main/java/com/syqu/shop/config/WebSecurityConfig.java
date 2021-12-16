@@ -1,7 +1,7 @@
 package com.syqu.shop.config;
 
 import com.syqu.shop.service.impl.UserDetailsServiceImpl;
-import com.syqu.shop.repository.UserRepository;
+import com.syqu.shop.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,10 +18,10 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    private final UserRepository userRepository;
+    private final CustomerRepository userRepository;
 
     @Autowired
-    public WebSecurityConfig(UserRepository userRepository) {
+    public WebSecurityConfig(CustomerRepository userRepository) {
         this.userRepository = userRepository;
     }
 

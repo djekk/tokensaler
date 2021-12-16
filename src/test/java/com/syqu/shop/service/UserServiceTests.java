@@ -1,7 +1,7 @@
 package com.syqu.shop.service;
 
 import com.syqu.shop.creator.UserCreator;
-import com.syqu.shop.domain.User;
+import com.syqu.shop.domain.Customer;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,7 +17,7 @@ import static org.mockito.MockitoAnnotations.initMocks;
 public class UserServiceTests {
 
     @MockBean
-    private UserService userService;
+    private CustomerService userService;
 
     @Test
     public void checkIfUserServiceIsNotNull(){
@@ -28,10 +28,10 @@ public class UserServiceTests {
 
     @Test
     public void saveUserTests(){
-        User user = UserCreator.createTestUser();
+        Customer user = UserCreator.createTestUser();
         userService.save(user);
         when(userService.findById(user.getId())).thenReturn(user);
-        User found = userService.findById(user.getId());
+        Customer found = userService.findById(user.getId());
 
         assertThat(found).isNotNull();
         assertThat(found.getUsername()).isEqualTo(user.getUsername());
@@ -43,7 +43,7 @@ public class UserServiceTests {
     @Test
     public void whenFindByIdThenReturnUser() {
         when(userService.findById(100L)).thenReturn(UserCreator.createTestUser());
-        User found = userService.findById(100L);
+        Customer found = userService.findById(100L);
 
         assertThat(found).isNotNull();
         assertThat(found.getUsername()).isEqualTo(UserCreator.USERNAME);
@@ -57,7 +57,7 @@ public class UserServiceTests {
         initMocks(this);
 
         when(userService.findByUsername(UserCreator.USERNAME)).thenReturn(UserCreator.createTestUser());
-        User found = userService.findByUsername(UserCreator.USERNAME);
+        Customer found = userService.findByUsername(UserCreator.USERNAME);
 
         assertThat(found.getUsername()).isEqualTo(UserCreator.USERNAME);
         assertThat(found.getEmail()).isEqualTo(UserCreator.EMAIL);
@@ -70,7 +70,7 @@ public class UserServiceTests {
         initMocks(this);
 
         when(userService.findByEmail(UserCreator.EMAIL)).thenReturn(UserCreator.createTestUser());
-        User found = userService.findByEmail(UserCreator.EMAIL);
+        Customer found = userService.findByEmail(UserCreator.EMAIL);
 
         assertThat(found).isNotNull();
         assertThat(found.getUsername()).isEqualTo(UserCreator.USERNAME);
@@ -81,21 +81,21 @@ public class UserServiceTests {
 
     @Test
     public void whenFindByIdAndNoUserThenReturnNull(){
-        User found = userService.findById(25L);
+        Customer found = userService.findById(25L);
 
         assertThat(found).isNull();
     }
 
     @Test
     public void whenFindByUsernameAndNoUserThenReturnNull(){
-        User found = userService.findByUsername("Tests");
+        Customer found = userService.findByUsername("Tests");
 
         assertThat(found).isNull();
     }
 
     @Test
     public void whenFindByEmailAndNoUserThenReturnNull(){
-        User found = userService.findByEmail("example@donut.org");
+        Customer found = userService.findByEmail("example@donut.org");
 
         assertThat(found).isNull();
     }
