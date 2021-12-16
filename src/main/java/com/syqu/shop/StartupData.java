@@ -18,21 +18,18 @@ import java.math.BigDecimal;
 public class StartupData implements CommandLineRunner {
     private final CustomerService userService;
     private final ProductService productService;
-    private final CategoryRepository categoryRepository;
     private static final Logger logger = LoggerFactory.getLogger(StartupData.class);
 
     @Autowired
-    public StartupData(CustomerService userService, ProductService productService, CategoryRepository categoryRepository) {
+    public StartupData(CustomerService userService, ProductService productService) {
         this.userService = userService;
         this.productService = productService;
-        this.categoryRepository = categoryRepository;
     }
 
     @Override
     public void run(String... args) {
         adminAccount();
         userAccount();
-        category();
         exampleProducts();
     }
 
@@ -42,7 +39,6 @@ public class StartupData implements CommandLineRunner {
         user.setUsername("user");
         user.setPassword("user");
         user.setPasswordConfirm("user");
-        user.setGender("Female");
         user.setEmail("user@example.com");
 
         userService.save(user);
@@ -54,19 +50,9 @@ public class StartupData implements CommandLineRunner {
         admin.setUsername("admin");
         admin.setPassword("admin");
         admin.setPasswordConfirm("admin");
-        admin.setGender("Male");
         admin.setEmail("admin@example.com");
 
         userService.save(admin);
-    }
-
-    private void category(){
-        Category category1 = new Category();
-        Category category2 = new Category();
-        category1.setId(1);
-        category1.setCategoryName("Adventure");
-
-        categoryRepository.save(category1);
     }
 
     private void exampleProducts(){
@@ -80,7 +66,6 @@ public class StartupData implements CommandLineRunner {
         product1.setName(NAME);
         product1.setImageUrl(IMAGE_URL);
         product1.setDescription(DESCRIPTION);
-        product1.setCategory(categoryRepository.findByCategoryName("Adventure"));
         product1.setPrice(PRICE);
 
         productService.save(product1);

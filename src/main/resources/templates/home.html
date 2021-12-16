@@ -10,17 +10,11 @@
 
     <div class="container">
         <div class="row">
-            <nav class="side-menu">
-                <h3>Category</h3>
-                <ul>
-                    <li th:each="cat: ${categories}"><a th:href="@{/searchByCategory(categoryId=${cat.id})}" th:text="${cat.categoryName}"></a></li>
-                </ul>
-            </nav>
 
-        <button sec:authorize="hasRole('ROLE_ADMIN')" class="btn">
-        <a th:href="@{product/new}"><i class="fas fa-plus fa-2x"></i></a>
-        </button>
-    <div class="col card-deck ml-5 my-3" th:if="${!products.isEmpty()}" >
+	        <button sec:authorize="hasRole('ROLE_ADMIN')" class="btn">
+	        <a th:href="@{product/new}"><i class="fas fa-plus fa-2x"></i></a>
+	        </button>
+   			<div class="col card-deck ml-5 my-3" th:if="${!products.isEmpty()}" >
                 <div class="card" th:each="product : ${products}">
                     <div sec:authorize="hasRole('ROLE_ADMIN')" class="admin">
                         <button class="btn">
@@ -40,7 +34,7 @@
                         <a th:href="${'/cart/add/' + product.getId()}" class="btn btn-lg btn-outline-info btn-block" th:text="#{product.add}" ></a>
                     </div>
                 </div>
-    </div>
+   			</div>
         <div>
          <span th:text="#{product.count} + ' ' + ${productsCount}"></span>
         </div>
