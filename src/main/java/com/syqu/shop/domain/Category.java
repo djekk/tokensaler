@@ -25,7 +25,7 @@ public class Category {
     private String categoryName;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "category", cascade = CascadeType.ALL)
-    private Set<Product> books = new HashSet<>();
+    private Set<Product> products = new HashSet<>();
 
     @Override
     public boolean equals(Object o) {
