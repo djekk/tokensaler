@@ -15,25 +15,25 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserServiceImpl implements CustomerService {
-    private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
-    private final CustomerRepository userRepository;
+public class CustomerServiceImpl implements CustomerService {
+    private static final Logger logger = LoggerFactory.getLogger(CustomerServiceImpl.class);
+    private final CustomerRepository customerRepository;
     private final UserDetailsService userDetailsService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final AuthenticationManager authenticationManager;
 
     @Autowired
-    public UserServiceImpl(CustomerRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder, UserDetailsService userDetailsService, AuthenticationManager authenticationManager) {
-        this.userRepository = userRepository;
+    public CustomerServiceImpl(CustomerRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder, UserDetailsService userDetailsService, AuthenticationManager authenticationManager) {
+        this.customerRepository = userRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.userDetailsService = userDetailsService;
         this.authenticationManager = authenticationManager;
     }
 
     @Override
-    public void save(Customer user) {
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        userRepository.save(user);
+    public void save(Customer customer) {
+    	customer.setPassword(bCryptPasswordEncoder.encode(customer.getPassword()));
+        customerRepository.save(customer);
     }
 
     @Override
@@ -52,16 +52,16 @@ public class UserServiceImpl implements CustomerService {
 
     @Override
     public Customer findByUsername(String username) {
-        return userRepository.findByUsername(username);
+        return customerRepository.findByUsername(username);
     }
 
     @Override
     public Customer findByEmail(String email) {
-        return userRepository.findByEmail(email);
+        return customerRepository.findByEmail(email);
     }
 
     @Override
     public Customer findById(long id) {
-        return userRepository.findById(id);
+        return customerRepository.findById(id);
     }
 }

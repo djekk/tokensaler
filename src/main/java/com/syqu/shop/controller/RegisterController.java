@@ -2,7 +2,7 @@ package com.syqu.shop.controller;
 
 import com.syqu.shop.domain.Customer;
 import com.syqu.shop.service.CustomerService;
-import com.syqu.shop.validator.UserValidator;
+import com.syqu.shop.validator.CustomerValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,33 +16,36 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class RegisterController {
     private static final Logger logger = LoggerFactory.getLogger(RegisterController.class);
-    private final CustomerService userService;
-    private final UserValidator userValidator;
+    private final CustomerService customerService;
+    private final CustomerValidator customerValidator;
 
     @Autowired
-    public RegisterController(CustomerService userService, UserValidator userValidator) {
-        this.userService = userService;
-        this.userValidator = userValidator;
+    public RegisterController(CustomerService customerService, CustomerValidator customerValidator) {
+        this.customerService = customerService;
+        this.customerValidator = customerValidator;
     }
 
     @GetMapping("/register")
     public String registration(Model model) {
-        model.addAttribute("userForm", new Customer());
+        model.addAttribute("customerForm", new Customer());
 
+        System.out.println("get register");
         return "register";
     }
 
     @PostMapping("/register")
-    public String registration(@ModelAttribute("userForm") Customer userForm, BindingResult bindingResult) {
-        userValidator.validate(userForm, bindingResult);
+    public String registration(@ModelAttribute("customerForm") Customer customerForm, BindingResult bindingResult) {
+        customerValidator.validate(customerForm, bindingResult);
 
+    	System.out.println("post register");
+    	
         if (bindingResult.hasErrors()) {
             logger.error(String.valueOf(bindingResult.getFieldError()));
             return "register";
         }
 
-        userService.save(userForm);
-        userService.login(userForm.getUsername(), userForm.getPasswordConfirm());
+        customerService.save(customerForm);
+        customerService.login(customerForm.getUsername(), customerForm.getPasswordConfirm());
 
         return "redirect:/home";
     }

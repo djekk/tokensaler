@@ -4,6 +4,8 @@ import com.syqu.shop.domain.Product;
 import com.syqu.shop.service.ProductService;
 import com.syqu.shop.domain.Customer;
 import com.syqu.shop.service.CustomerService;
+import com.syqu.shop.domain.Distributor;
+import com.syqu.shop.service.DistributorService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,12 +18,14 @@ import java.math.BigDecimal;
 public class StartupData implements CommandLineRunner {
     private final CustomerService userService;
     private final ProductService productService;
+    private final DistributorService distributorService;
     private static final Logger logger = LoggerFactory.getLogger(StartupData.class);
 
     @Autowired
-    public StartupData(CustomerService userService, ProductService productService) {
+    public StartupData(CustomerService userService, ProductService productService, DistributorService distributorService) {
         this.userService = userService;
         this.productService = productService;
+        this.distributorService = distributorService;
     }
 
     @Override
@@ -29,6 +33,7 @@ public class StartupData implements CommandLineRunner {
         adminAccount();
         userAccount();
         exampleProducts();
+        distributor();
     }
 
     private void userAccount(){
@@ -68,5 +73,14 @@ public class StartupData implements CommandLineRunner {
 
         productService.save(product1);
 
+    }
+    
+    private void distributor(){
+    	Distributor distributor = new Distributor();
+
+    	distributor.setUsername("distributor");
+        distributor.setEmail("distributor@example.com");
+
+        distributorService.save(distributor);
     }
 }
