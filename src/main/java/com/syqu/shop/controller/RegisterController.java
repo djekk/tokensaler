@@ -2,6 +2,7 @@ package com.syqu.shop.controller;
 
 import com.syqu.shop.domain.Customer;
 import com.syqu.shop.service.CustomerService;
+import com.syqu.shop.service.DistributorService;
 import com.syqu.shop.validator.CustomerValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,34 +19,36 @@ public class RegisterController {
     private static final Logger logger = LoggerFactory.getLogger(RegisterController.class);
     private final CustomerService customerService;
     private final CustomerValidator customerValidator;
+    private final DistributorService distributorService;
 
     @Autowired
-    public RegisterController(CustomerService customerService, CustomerValidator customerValidator) {
+    public RegisterController(CustomerService customerService, 
+    		CustomerValidator customerValidator,
+    		DistributorService distributorService) {
         this.customerService = customerService;
         this.customerValidator = customerValidator;
+        this.distributorService = distributorService;
     }
 
     @GetMapping("/register")
     public String registration(Model model) {
-        model.addAttribute("customerForm", new Customer());
+        model.addAttribute("userForm", new Customer());
+        model.addAttribute("distributors", distributorService.findAll());
 
-        System.out.println("get register");
         return "register";
     }
 
     @PostMapping("/register")
-    public String registration(@ModelAttribute("customerForm") Customer customerForm, BindingResult bindingResult) {
-        customerValidator.validate(customerForm, bindingResult);
+    public String registration(@ModelAttribute("userForm") Customer userForm, BindingResult bindingResult) {
+        customerValidator.validate(userForm, bindingResult);
 
-    	System.out.println("post register");
-    	
         if (bindingResult.hasErrors()) {
             logger.error(String.valueOf(bindingResult.getFieldError()));
             return "register";
         }
 
-        customerService.save(customerForm);
-        customerService.login(customerForm.getUsername(), customerForm.getPasswordConfirm());
+        customerService.save(userForm);
+        customerService.login(userForm.getUsername(), userForm.getPasswordConfirm());
 
         return "redirect:/home";
     }

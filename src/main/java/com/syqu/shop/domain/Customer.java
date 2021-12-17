@@ -36,4 +36,9 @@ public class Customer {
     @NotEmpty
     @NotNull
     private String passwordConfirm;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "distributor_id", nullable = true)
+    private Distributor distributor;
+
 }

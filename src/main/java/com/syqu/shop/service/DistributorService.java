@@ -1,5 +1,7 @@
 package com.syqu.shop.service;
 
+import java.util.List;
+
 import com.syqu.shop.domain.Distributor;
 
 public interface DistributorService {
@@ -8,4 +10,5 @@ public interface DistributorService {
     Distributor findByUsername(String username);
     Distributor findByEmail(String email);
     Distributor findById(long id);
+    List<Distributor> findAll();
 }

@@ -13,6 +13,7 @@
         <br>
 
         <h3 th:text="#{user.username} + ': ' + ${user.getUsername()}"></h3>
+        <h3 th:text="#{user.distributor} + ': ' + ${distributorUserName}"></h3>
     </div>
 
     <div th:replace="fragments/footer :: footer"></div>

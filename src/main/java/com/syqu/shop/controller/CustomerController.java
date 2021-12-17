@@ -21,9 +21,11 @@ public class CustomerController {
     @GetMapping("/user")
     public String userPanel(Principal principal, Model model){
         Customer user = userService.findByUsername(principal.getName());
+        String distributorUserName = user.getDistributor().getUsername();
 
         if (user != null) {
             model.addAttribute("user", user);
+            model.addAttribute("distributorUserName", distributorUserName);
         }else {
             return "error/404";
         }

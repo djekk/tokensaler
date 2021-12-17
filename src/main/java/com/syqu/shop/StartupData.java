@@ -30,10 +30,10 @@ public class StartupData implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
+    	distributor();
         adminAccount();
         userAccount();
         exampleProducts();
-        distributor();
     }
 
     private void userAccount(){
@@ -43,7 +43,7 @@ public class StartupData implements CommandLineRunner {
         user.setPassword("user");
         user.setPasswordConfirm("user");
         user.setEmail("user@example.com");
-
+        user.setDistributor(distributorService.findByUsername("distributor"));
         userService.save(user);
     }
 

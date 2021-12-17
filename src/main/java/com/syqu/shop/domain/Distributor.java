@@ -6,7 +6,6 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.math.BigDecimal;
 
 @Data
 @Entity
@@ -28,4 +27,7 @@ public class Distributor {
     @NotEmpty
     @NotNull
     private String email;
+    
+  //  @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer", cascade = CascadeType.ALL)
+  //  private Set<Customer> customers = new HashSet<>();
 }
