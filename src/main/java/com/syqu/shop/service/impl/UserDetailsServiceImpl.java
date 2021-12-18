@@ -1,6 +1,6 @@
 package com.syqu.shop.service.impl;
 
-import com.syqu.shop.domain.Customer;
+import com.syqu.shop.object.Customer;
 import com.syqu.shop.repository.CustomerRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,20 +29,20 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     @Transactional(readOnly = true)
-    public UserDetails loadUserByUsername(String username){
-        Customer user = userRepository.findByUsername(username);
+    public UserDetails loadUserByUsername(String email){
+        Customer user = userRepository.findByEmail(email);
 
         if (user != null) {
             Set<GrantedAuthority> authorities = new HashSet<>();
-            if (Objects.equals(username, "admin")) {
+            if (Objects.equals(email, "admin")) {
                 authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
             }else {
                 authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
             }
-            logger.debug(String.format("User with name: %s and password: %s created.", user.getUsername(), user.getPassword()));
-            return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), authorities);
+            logger.debug(String.format("Customer with e-mail: %s and password: %s created.", user.getEmail(), user.getPassword()));
+            return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), authorities);
         }else{
-            throw new UsernameNotFoundException("User " + username + " not found!");
+            throw new UsernameNotFoundException("Email " + email + " not found!");
         }
     }
 

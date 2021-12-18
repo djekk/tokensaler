@@ -1,7 +1,8 @@
 package com.syqu.shop.service;
 
 import com.syqu.shop.creator.UserCreator;
-import com.syqu.shop.domain.Customer;
+import com.syqu.shop.object.Customer;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -34,10 +35,7 @@ public class UserServiceTests {
         Customer found = userService.findById(user.getId());
 
         assertThat(found).isNotNull();
-        assertThat(found.getUsername()).isEqualTo(user.getUsername());
         assertThat(found.getEmail()).isEqualTo(user.getEmail());
-        assertThat(found.getAge()).isEqualTo(user.getAge());
-        assertThat(found.getGender()).isEqualTo(user.getGender());
     }
 
     @Test
@@ -46,23 +44,17 @@ public class UserServiceTests {
         Customer found = userService.findById(100L);
 
         assertThat(found).isNotNull();
-        assertThat(found.getUsername()).isEqualTo(UserCreator.USERNAME);
         assertThat(found.getEmail()).isEqualTo(UserCreator.EMAIL);
-        assertThat(found.getAge()).isEqualTo(UserCreator.AGE);
-        assertThat(found.getGender()).isEqualTo(UserCreator.GENDER);
     }
 
     @Test
     public void whenFindByUsernameThenReturnUser() {
         initMocks(this);
 
-        when(userService.findByUsername(UserCreator.USERNAME)).thenReturn(UserCreator.createTestUser());
-        Customer found = userService.findByUsername(UserCreator.USERNAME);
+        when(userService.findByEmail(UserCreator.EMAIL)).thenReturn(UserCreator.createTestUser());
+        Customer found = userService.findByEmail(UserCreator.EMAIL);
 
-        assertThat(found.getUsername()).isEqualTo(UserCreator.USERNAME);
         assertThat(found.getEmail()).isEqualTo(UserCreator.EMAIL);
-        assertThat(found.getAge()).isEqualTo(UserCreator.AGE);
-        assertThat(found.getGender()).isEqualTo(UserCreator.GENDER);
     }
 
     @Test
@@ -73,10 +65,7 @@ public class UserServiceTests {
         Customer found = userService.findByEmail(UserCreator.EMAIL);
 
         assertThat(found).isNotNull();
-        assertThat(found.getUsername()).isEqualTo(UserCreator.USERNAME);
         assertThat(found.getEmail()).isEqualTo(UserCreator.EMAIL);
-        assertThat(found.getAge()).isEqualTo(UserCreator.AGE);
-        assertThat(found.getGender()).isEqualTo(UserCreator.GENDER);
     }
 
     @Test
@@ -88,7 +77,7 @@ public class UserServiceTests {
 
     @Test
     public void whenFindByUsernameAndNoUserThenReturnNull(){
-        Customer found = userService.findByUsername("Tests");
+        Customer found = userService.findByEmail("Tests");
 
         assertThat(found).isNull();
     }

@@ -1,4 +1,4 @@
-package com.syqu.shop.domain;
+package com.syqu.shop.object;
 
 import lombok.Data;
 

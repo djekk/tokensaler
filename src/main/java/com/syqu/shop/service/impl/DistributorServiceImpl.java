@@ -1,7 +1,7 @@
 package com.syqu.shop.service.impl;
 
 import com.syqu.shop.service.DistributorService;
-import com.syqu.shop.domain.Distributor;
+import com.syqu.shop.object.Distributor;
 import com.syqu.shop.repository.DistributorRepository;
 
 import java.util.List;

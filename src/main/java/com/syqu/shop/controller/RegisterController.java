@@ -1,6 +1,6 @@
 package com.syqu.shop.controller;
 
-import com.syqu.shop.domain.Customer;
+import com.syqu.shop.object.Customer;
 import com.syqu.shop.service.CustomerService;
 import com.syqu.shop.service.DistributorService;
 import com.syqu.shop.validator.CustomerValidator;
@@ -33,7 +33,6 @@ public class RegisterController {
     @GetMapping("/register")
     public String registration(Model model) {
         model.addAttribute("userForm", new Customer());
-        model.addAttribute("distributors", distributorService.findAll());
 
         return "register";
     }
@@ -48,8 +47,9 @@ public class RegisterController {
         }
 
         customerService.save(userForm);
-        customerService.login(userForm.getUsername(), userForm.getPasswordConfirm());
-
-        return "redirect:/home";
+     //   customerService.login(userForm.getEmail(), userForm.getPasswordConfirm());
+       // return "redirect:/home";
+        
+        return "redirect:/registration/"+userForm.getEmail();
     }
 }

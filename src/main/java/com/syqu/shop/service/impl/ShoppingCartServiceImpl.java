@@ -1,6 +1,6 @@
 package com.syqu.shop.service.impl;
 
-import com.syqu.shop.domain.Product;
+import com.syqu.shop.object.Product;
 import com.syqu.shop.service.ShoppingCartService;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;

@@ -1,6 +1,6 @@
 package com.syqu.shop.validator;
 
-import com.syqu.shop.domain.Customer;
+import com.syqu.shop.object.Customer;
 import com.syqu.shop.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -27,20 +27,10 @@ public class CustomerValidator implements Validator {
         Customer user = (Customer) o;
 
         //Username and password can't me empty or contain whitespace
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username", "error.not_empty");
+        //ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username", "error.not_empty");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "error.not_empty");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "error.not_empty");
 
-        // Username must have from 4 characters to 32
-        if (user.getUsername().length() < 4) {
-            errors.rejectValue("username", "register.error.username.less_4");
-        }
-        if(user.getUsername().length() > 32){
-            errors.rejectValue("username","register.error.username.over_32");
-        }
-        //Username can't be duplicated
-        if (userService.findByUsername(user.getUsername()) != null) {
-            errors.rejectValue("username", "register.error.duplicated.username");
-        }
         //Email can't be duplicated
         if (userService.findByEmail(user.getEmail()) != null){
             errors.rejectValue("email", "register.error.duplicated.email");

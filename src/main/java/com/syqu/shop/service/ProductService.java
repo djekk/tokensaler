@@ -1,8 +1,8 @@
 package com.syqu.shop.service;
 
-import com.syqu.shop.domain.Product;
-
 import java.util.List;
+
+import com.syqu.shop.object.Product;
 
 public interface ProductService {
     void save(Product product);

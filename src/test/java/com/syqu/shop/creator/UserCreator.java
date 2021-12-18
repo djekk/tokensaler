@@ -1,8 +1,8 @@
 package com.syqu.shop.creator;
 
-import com.syqu.shop.domain.Customer;
-
 import java.math.BigDecimal;
+
+import com.syqu.shop.object.Customer;
 
 public class UserCreator {
     public static final String USERNAME = "Test";
@@ -12,7 +12,6 @@ public class UserCreator {
     public static Customer createTestUser() {
         Customer testObject = new Customer();
 
-        testObject.setUsername(USERNAME);
         testObject.setPassword(PASSWORD);
         testObject.setPasswordConfirm(PASSWORD);
         testObject.setEmail(EMAIL);

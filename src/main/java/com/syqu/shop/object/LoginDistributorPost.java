@@ -1,9 +1,9 @@
-package com.syqu.shop.domain;
+package com.syqu.shop.object;
 
 import org.springframework.stereotype.Component;
 
 @Component
-public class LoginDistributor {
+public class LoginDistributorPost {
 	 
 	    private String username;
 		private String password;

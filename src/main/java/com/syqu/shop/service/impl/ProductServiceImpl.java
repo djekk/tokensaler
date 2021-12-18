@@ -1,6 +1,6 @@
 package com.syqu.shop.service.impl;
 
-import com.syqu.shop.domain.Product;
+import com.syqu.shop.object.Product;
 import com.syqu.shop.repository.ProductRepository;
 import com.syqu.shop.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;

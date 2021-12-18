@@ -1,7 +1,7 @@
 package com.syqu.shop.controller;
 
 import com.syqu.shop.service.ShoppingCartService;
-import com.syqu.shop.domain.Product;
+import com.syqu.shop.object.Product;
 import com.syqu.shop.service.ProductService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -2,7 +2,7 @@ package com.syqu.shop.service;
 
 import java.util.List;
 
-import com.syqu.shop.domain.Distributor;
+import com.syqu.shop.object.Distributor;
 
 public interface DistributorService {
     void save(Distributor user);

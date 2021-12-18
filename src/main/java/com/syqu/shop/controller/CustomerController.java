@@ -1,6 +1,6 @@
 package com.syqu.shop.controller;
 
-import com.syqu.shop.domain.Customer;
+import com.syqu.shop.object.Customer;
 import com.syqu.shop.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,21 +11,27 @@ import java.security.Principal;
 
 @Controller
 public class CustomerController {
-    private final CustomerService userService;
+    private final CustomerService customerService;
 
     @Autowired
-    public CustomerController(CustomerService userService) {
-        this.userService = userService;
+    public CustomerController(CustomerService customerService) {
+        this.customerService = customerService;
     }
 
     @GetMapping("/user")
     public String userPanel(Principal principal, Model model){
-        Customer user = userService.findByUsername(principal.getName());
-        String distributorUserName = user.getDistributor().getUsername();
+        Customer user = customerService.findByEmail(principal.getName());
 
-        if (user != null) {
+        if (user != null) 
+        {
             model.addAttribute("user", user);
-            model.addAttribute("distributorUserName", distributorUserName);
+            
+            String distributorUsername = "";
+            if(user.getDistributor() != null)
+            {
+            	distributorUsername = user.getDistributor().getUsername();
+            }
+            model.addAttribute("distributorUsername", distributorUsername);
         }else {
             return "error/404";
         }

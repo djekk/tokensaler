@@ -1,7 +1,7 @@
 package com.syqu.shop.service.impl;
 
 import com.syqu.shop.service.CustomerService;
-import com.syqu.shop.domain.Customer;
+import com.syqu.shop.object.Customer;
 import com.syqu.shop.repository.CustomerRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,24 +37,19 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void login(String username, String password) {
-        UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+    public void login(String email, String password) {
+        UserDetails userDetails = userDetailsService.loadUserByUsername(email);
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(userDetails, password, userDetails.getAuthorities());
         authenticationManager.authenticate(token);
 
         if (token.isAuthenticated()) {
             SecurityContextHolder.getContext().setAuthentication(token);
-            logger.debug(String.format("User %s logged in successfully!", username));
+            logger.debug(String.format("Customer  %s logged in successfully!", email));
         }else{
-            logger.error(String.format("Error with %s authentication!", username));
+            logger.error(String.format("Error with %s authentication!", email));
         }
     }
-
-    @Override
-    public Customer findByUsername(String username) {
-        return customerRepository.findByUsername(username);
-    }
-
+   
     @Override
     public Customer findByEmail(String email) {
         return customerRepository.findByEmail(email);

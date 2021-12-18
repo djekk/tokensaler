@@ -11,14 +11,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.syqu.shop.domain.LoginDistributor;
+import com.syqu.shop.object.LoginDistributorPost;
 
 import net.minidev.json.JSONObject;
 
 @Controller
 public class DistributorController {
     private static final Logger logger = LoggerFactory.getLogger(DistributorController.class);
-
 
     @Autowired
     public DistributorController() {
@@ -48,7 +47,7 @@ public class DistributorController {
     }
     
     @PostMapping("/distributor3")
-    public String distributorIn3(@RequestBody LoginDistributor ld) {
+    public String distributorIn3(@RequestBody LoginDistributorPost ld) {
 
     	System.out.println(ld.getUsername());
         System.out.println(ld.getPassword());

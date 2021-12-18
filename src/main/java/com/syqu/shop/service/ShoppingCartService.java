@@ -1,7 +1,8 @@
 package com.syqu.shop.service;
 
-import com.syqu.shop.domain.Product;
 import org.springframework.stereotype.Service;
+
+import com.syqu.shop.object.Product;
 
 import java.math.BigDecimal;
 import java.util.Map;

@@ -1,10 +1,10 @@
 package com.syqu.shop;
 
-import com.syqu.shop.domain.Product;
 import com.syqu.shop.service.ProductService;
-import com.syqu.shop.domain.Customer;
+import com.syqu.shop.object.Customer;
+import com.syqu.shop.object.Distributor;
+import com.syqu.shop.object.Product;
 import com.syqu.shop.service.CustomerService;
-import com.syqu.shop.domain.Distributor;
 import com.syqu.shop.service.DistributorService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,21 +39,19 @@ public class StartupData implements CommandLineRunner {
     private void userAccount(){
         Customer user = new Customer();
 
-        user.setUsername("user");
+        user.setEmail("user@example.com");
         user.setPassword("user");
         user.setPasswordConfirm("user");
-        user.setEmail("user@example.com");
-        user.setDistributor(distributorService.findByUsername("distributor"));
+      //  user.setDistributor(distributorService.findByUsername("distributor"));
         userService.save(user);
     }
 
     private void adminAccount(){
         Customer admin = new Customer();
 
-        admin.setUsername("admin");
+        admin.setEmail("admin@example.com");
         admin.setPassword("admin");
         admin.setPasswordConfirm("admin");
-        admin.setEmail("admin@example.com");
 
         userService.save(admin);
     }

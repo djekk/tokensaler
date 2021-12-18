@@ -10,7 +10,7 @@ public class LoginController {
     @GetMapping("/login")
     public String login(Model model, String error){
         if (error != null)
-            model.addAttribute("error", "Your username and password is invalid.");
+            model.addAttribute("error", "Your e-mail and password is invalid.");
 
         return "login";
     }

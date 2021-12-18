@@ -1,7 +1,8 @@
 package com.syqu.shop.model;
 
 import com.syqu.shop.creator.UserCreator;
-import com.syqu.shop.domain.Customer;
+import com.syqu.shop.object.Customer;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -30,7 +31,7 @@ public class UserEntityTests {
         this.thrown.expectMessage("must not be null");
 
         Customer testObject = UserCreator.createTestUser();
-        testObject.setUsername(null);
+        testObject.setEmail(null);
 
         entityManager.persistAndFlush(testObject);
     }
@@ -41,7 +42,7 @@ public class UserEntityTests {
         this.thrown.expectMessage("must not be empty");
 
         Customer testObject = UserCreator.createTestUser();
-        testObject.setUsername("");
+        testObject.setEmail("");
 
         entityManager.persistAndFlush(testObject);
     }
@@ -129,7 +130,7 @@ public class UserEntityTests {
         this.thrown.expectMessage("must not be null");
 
         Customer testObject = UserCreator.createTestUser();
-        testObject.setGender(null);
+        testObject.setPassword(null);
 
         entityManager.persistAndFlush(testObject);
     }
@@ -140,7 +141,7 @@ public class UserEntityTests {
         this.thrown.expectMessage("must not be empty");
 
         Customer testObject = UserCreator.createTestUser();
-        testObject.setGender("");
+        testObject.setPassword("");
 
         entityManager.persistAndFlush(testObject);
     }

@@ -1,10 +1,10 @@
 package com.syqu.shop.creator;
 
-import com.syqu.shop.domain.Product;
-
 import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
+
+import com.syqu.shop.object.Product;
 
 public class ProductCreator {
     public static final String NAME = "Test";

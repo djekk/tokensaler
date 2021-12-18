@@ -1,7 +1,8 @@
 package com.syqu.shop.repository;
 
 import com.syqu.shop.creator.UserCreator;
-import com.syqu.shop.domain.Customer;
+import com.syqu.shop.object.Customer;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,10 +36,9 @@ public class UserRepositoryTests {
         Customer testObject = UserCreator.createTestUser();
         entityManager.persistAndFlush(testObject);
 
-        Customer found = userRepository.findByUsername(testObject.getUsername());
+        Customer found = userRepository.findByEmail(testObject.getEmail());
 
         assertThat(found.getId()).isEqualTo(testObject.getId());
-        assertThat(found.getUsername()).isEqualTo(testObject.getUsername());
         assertThat(found.getPassword()).isEqualTo(testObject.getPassword());
         assertThat(found.getPasswordConfirm()).isEqualTo(found.getPassword());
         assertThat(found.getPasswordConfirm()).isEqualTo(testObject.getPasswordConfirm());
@@ -72,7 +72,7 @@ public class UserRepositoryTests {
 
     @Test
     public void whenFindByUsernameAndNoUserThenReturnNull() {
-        assertThat(userRepository.findByUsername("xxminecraftplayerxx")).isNull();
+        assertThat(userRepository.findByEmail("xxminecraftplayerxx")).isNull();
     }
 
     @Test
