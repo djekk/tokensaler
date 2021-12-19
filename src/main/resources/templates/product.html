@@ -29,11 +29,7 @@
                         <input type="url" th:field="*{imageUrl}" class="form-control input-lg" title="imageUrl" autofocus="false" />
                         <div class="alert alert-danger error-alert" th:if="${#fields.hasErrors('imageUrl')}" th:errors="*{imageUrl}"></div>
                     </div>
-                    <div class="form-group">
-                        <label th:text="#{product.price}"></label>
-                        <input type="search" th:field="*{price}" class="form-control input-lg" title="price" autofocus="false" />
-                        <div class="alert alert-danger error-alert" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></div>
-                    </div>
+
                     <input th:if="${method} == 'new'" class="btn btn-outline-dark" type="submit" th:action="@{/product/new}" th:value="#{product.confirm}"/>
                     <input th:if="${method} == 'edit'" class="btn btn-outline-dark" type="submit" th:action="@{/product/edit/{productId}}" th:value="#{product.update}"/>                    
                 </fieldset>

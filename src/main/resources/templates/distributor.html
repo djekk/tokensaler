@@ -14,10 +14,12 @@
 	   	<form action="/distributorRegister" method="post" target="_blank">
 			 <div class="form-group">
 	         	<input class="form-control" type="hidden" th:value="${distr}" id="distr" name="distr"/>
-	         </div><br><br>
+	         </div>
 	  		<input type="submit" value="Register">
 		</form>
+
 		<br><br>
+		
 		<form autocomplete="off" th:action="@{/distributorLogin}" class="form-signin" method="POST">
             <fieldset>
                 <h3>For login</h3>
@@ -35,7 +37,6 @@
 		         	<input class="form-control" type="hidden" th:value="${distr}" id="distr" name="distr"/>
 		         </div>
 	         <fieldset>
-	         <br><br>
 			 <input type="submit" value="Login">
 		</form>
 		        
