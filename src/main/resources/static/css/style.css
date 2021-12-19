@@ -2,12 +2,14 @@ html {
     height: 100%;
 }
 
+label:hover{
+	cursor: text;
+}
+
 body {
     background: rgb(209, 209, 216);
-    position: relative;
     margin: 0;
     padding-bottom: 6rem;
-    min-height: 100%;
 }
 
 span {
@@ -22,8 +24,8 @@ footer {
 }
 
 .container {
-    padding-top: 15px;
-    padding-bottom: 8px;
+    margin-top: 15px;
+    margin-bottom: 8px;
 }
 
 .btn {
@@ -38,8 +40,12 @@ footer {
     color: ghostwhite;
 }
 
-nav {
-    height: 60px;
+#serialnumber {
+	width: 100%;
+}
+
+#quantity {
+	text-align: center;
 }
 
 .navbar-brand {
@@ -50,7 +56,7 @@ nav {
 }
 
 .navbar-brand:hover, .info-slide:active {
-    transform: scale(1.5);
+    transform: scale(1.1);
 }
 
 .card-deck {
@@ -62,6 +68,25 @@ nav {
 }
 
 #cart {
-    width: 44px;
-    height: 44px;
+    transition: .3s;
+}
+
+#cart:hover {
+	transform: scale(1.1);
+}
+
+.card-title {
+	text-align: center;
+}
+
+.card-footer div {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-bottom: 8px;
+}
+
+.add-btn {
+	margin-bottom: 0 !important;
+	margin-top: 12px;
 }
