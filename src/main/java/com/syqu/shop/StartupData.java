@@ -60,14 +60,13 @@ public class StartupData implements CommandLineRunner {
         final String NAME = "Token";
         final String IMAGE_URL = "images/token.png";
         final String DESCRIPTION = "";
-        final BigDecimal PRICE = BigDecimal.valueOf(1);
 
         Product product1 = new Product();
 
         product1.setName(NAME);
         product1.setImageUrl(IMAGE_URL);
         product1.setDescription(DESCRIPTION);
-        product1.setPrice(PRICE);
+
 
         productService.save(product1);
 

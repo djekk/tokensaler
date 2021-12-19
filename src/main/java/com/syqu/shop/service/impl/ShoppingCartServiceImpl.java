@@ -56,10 +56,10 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     @Override
     public BigDecimal totalPrice() {
-        return cart.entrySet().stream()
-                .map(k -> k.getKey().getPrice().multiply(BigDecimal.valueOf(k.getValue()))).sorted()
-                .reduce(BigDecimal::add)
-                .orElse(BigDecimal.ZERO);
+        return BigDecimal.ZERO;//cart.entrySet().stream()
+                //.map(k -> k.getKey().getPrice().multiply(BigDecimal.valueOf(k.getValue()))).sorted()
+                //.reduce(BigDecimal::add)
+                //.orElse(BigDecimal.ZERO);
     }
 
     @Override

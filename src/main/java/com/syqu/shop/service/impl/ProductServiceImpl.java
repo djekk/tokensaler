@@ -28,7 +28,6 @@ public class ProductServiceImpl implements ProductService {
         found.setName(newProduct.getName());
         found.setImageUrl(newProduct.getImageUrl());
         found.setDescription(newProduct.getDescription());
-        found.setPrice(newProduct.getPrice());
         save(newProduct);
     }
 

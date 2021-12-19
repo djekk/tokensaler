@@ -40,7 +40,6 @@ public class ProductServiceTests {
         assertThat(found).isNotNull();
         assertThat(found.getName()).isEqualTo(product.getName());
         assertThat(found.getDescription()).isEqualTo(product.getDescription());
-        assertThat(found.getPrice()).isEqualTo(product.getPrice());
         assertThat(found.getImageUrl()).isEqualTo(product.getImageUrl());
     }
 
@@ -49,7 +48,6 @@ public class ProductServiceTests {
         Product product = ProductCreator.createTestProduct();
         Product newProduct = ProductCreator.createTestProduct();
         newProduct.setName("Hello");
-        newProduct.setPrice(BigDecimal.valueOf(50));
         newProduct.setDescription("Hello Description :)");
 
         productService.save(product);
@@ -59,7 +57,6 @@ public class ProductServiceTests {
         Product found = productService.findById(newProduct.getId());
 
         assertThat(found).isNotNull();
-        assertThat(found.getPrice()).isEqualTo(BigDecimal.valueOf(50));
         assertThat(found.getName()).isEqualTo("Hello");
         assertThat(found.getDescription()).isEqualTo("Hello Description :)");
     }
@@ -83,7 +80,6 @@ public class ProductServiceTests {
         assertThat(found).isNotNull();
         assertThat(found.getName()).isEqualTo(ProductCreator.NAME);
         assertThat(found.getDescription()).isEqualTo(ProductCreator.DESCRIPTION);
-        assertThat(found.getPrice()).isEqualTo(ProductCreator.PRICE);
         assertThat(found.getImageUrl()).isEqualTo(ProductCreator.IMAGE_URL);
     }
 
@@ -97,7 +93,6 @@ public class ProductServiceTests {
         for (Product product : found){
             assertThat(product.getName()).isEqualTo(ProductCreator.NAME);
             assertThat(product.getDescription()).isEqualTo(ProductCreator.DESCRIPTION);
-            assertThat(product.getPrice()).isEqualTo(ProductCreator.PRICE);
             assertThat(product.getImageUrl()).isEqualTo(ProductCreator.IMAGE_URL);
         }
     }

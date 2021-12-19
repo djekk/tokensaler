@@ -9,7 +9,6 @@ import com.syqu.shop.object.Product;
 public class ProductCreator {
     public static final String NAME = "Test";
     public static final String DESCRIPTION = "testDescriptionTestDescription";
-    public static final BigDecimal PRICE = BigDecimal.valueOf(1000);
     public static final String IMAGE_URL = "https://avatars1.githubusercontent.com/u/30699233?s=400&u=cf0bc2b388b5c72364aaaedf26a8aab63f97ffcc&v=4";
 
     public static Product createTestProduct(){
@@ -17,7 +16,6 @@ public class ProductCreator {
 
         testProduct.setName(NAME);
         testProduct.setDescription(DESCRIPTION);
-        testProduct.setPrice(PRICE);
         testProduct.setImageUrl(IMAGE_URL);
 
         return testProduct;

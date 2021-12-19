@@ -102,7 +102,6 @@ public class ProductEntityTests {
         this.thrown.expectMessage("must not be null");
 
         Product testObject = ProductCreator.createTestProduct();
-        testObject.setPrice(null);
 
         entityManager.persistAndFlush(testObject);
     }

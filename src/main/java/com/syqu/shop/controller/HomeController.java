@@ -1,5 +1,6 @@
 package com.syqu.shop.controller;
 
+import com.syqu.shop.mail.MyMailSender;
 import com.syqu.shop.object.Customer;
 import com.syqu.shop.object.Product;
 import com.syqu.shop.service.CustomerService;
@@ -8,41 +9,35 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
 @Controller
 public class HomeController {
     private final ProductService productService;
-    private final CustomerService customerService;
+  //  private final CustomerService customerService;
 
     @Autowired
-    public HomeController(ProductService productService, CustomerService customerService) {
+    public HomeController(ProductService productService/*, CustomerService customerService*/) {
         this.productService = productService;
-        this.customerService = customerService;
+   //     this.customerService = customerService;
     }
 
     @GetMapping(value = {"/","/index","/home"})
     public String home(Model model){
         model.addAttribute("products", getAllProducts());
+        
+   //     MyMailSender.sendEmail();
         return "home";
     }
 
     @GetMapping("/about")
     public String about(){
         return "about";
-    }
-    
-    @GetMapping("/registration/{email}")
-    public String registration(@PathVariable("email") String email, Model model)
-    {
-    	Customer customer = customerService.findByEmail(email);
-    	if( customer != null )
-    	{
-    		model.addAttribute("user", customer);
-    	}
-        return "registration";
     }
     
      private List<Product> getAllProducts(){

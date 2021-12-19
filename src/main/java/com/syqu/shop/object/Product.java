@@ -31,10 +31,10 @@ public class Product {
     @Column(name = "image")
     private String imageUrl;
 
-    @Column(name = "price")
+  /*  @Column(name = "price")
     @NotNull
     private BigDecimal price;
-
+*/
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

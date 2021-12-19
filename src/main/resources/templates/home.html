@@ -26,8 +26,7 @@
                         <h4 class="card-title" th:text="${product.getName()}"></h4>
                         <p class="card-text" th:text="${product.getDescription()}"></p>
                     </div>
-                    <div class="card-footer">
-                        <p th:text="${product.getPrice()}"></p>
+                    <div class="card-footer">                      
                         <a th:href="${'/cart/add/' + product.getId()}" class="btn btn-lg btn-outline-info btn-block" th:text="#{product.add}" ></a>
                     </div>
                 </div>

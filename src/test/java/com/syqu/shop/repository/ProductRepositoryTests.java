@@ -42,7 +42,6 @@ public class ProductRepositoryTests {
         assertThat(found.getId()).isEqualTo(testObject.getId());
         assertThat(found.getName()).isEqualTo(testObject.getName());
         assertThat(found.getDescription()).isEqualTo(testObject.getDescription());
-        assertThat(found.getPrice()).isEqualTo(testObject.getPrice());
         assertThat(found.getImageUrl()).isEqualTo(testObject.getImageUrl());
     }
 

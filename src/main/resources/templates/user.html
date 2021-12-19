@@ -9,11 +9,11 @@
     <div th:replace="fragments/header :: header"></div>
 
     <div class="container">
-        <h2 th:text="#{user.title}"></h2>
+        <h4 th:text="#{user.title}"></h4>
         <br>
 
-        <h3 th:text="#{user.email} + ': ' + ${user.getEmail()}"></h3>
-        <h3 th:text="#{user.distributor} + ': ' + ${distributorUserName}"></h3>
+        <h5 th:text="#{user.email} + ': ' + ${user.getEmail()}"></h5>
+        <h5 th:text="#{user.distributor} + ': ' + ${distributorUsername}"></h5>
     </div>
 
     <div th:replace="fragments/footer :: footer"></div>
