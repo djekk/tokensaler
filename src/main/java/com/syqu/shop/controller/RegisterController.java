@@ -23,7 +23,6 @@ public class RegisterController {
     private final CustomerService customerService;
     private final CustomerValidator customerValidator;
     private final DistributorService distributorService;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
     public RegisterController(CustomerService customerService, 
@@ -33,7 +32,6 @@ public class RegisterController {
         this.customerService = customerService;
         this.customerValidator = customerValidator;
         this.distributorService = distributorService;
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     @GetMapping("/register")
@@ -89,44 +87,5 @@ public class RegisterController {
     		return "registration";
     	}
     	return "error/404";
-    }
-    
-    @PostMapping("/distributorRegister")
-    public String distributorRegister(@ModelAttribute("distr") String distr,
-    		RedirectAttributes redirectAttributes)
-    {
-    	Distributor distributor = distributorService.findByUsername(distr);
-    	if( distributor != null )
-    	{
-    		redirectAttributes.addFlashAttribute("distr", distr);
-    		return "redirect:/register";
-    	}
-    	
-        return "error/404";
-    }
-    
-    @PostMapping("/distributorLogin")
-    public String distributorLogin(
-    		@ModelAttribute("email") String email,
-    		@ModelAttribute("password") String password,
-    		@ModelAttribute("distr") String distr)
-    {
-    	Distributor distributor = distributorService.findByUsername(distr);
-    	if( distributor != null )
-    	{    		
-    		Customer user = customerService.findByEmail(email);
-    		if(user != null && password != null)
-    		{
-    		  	if (bCryptPasswordEncoder.matches(password, user.getPassword()))
-    			{
-    				customerService.login(email, password);
-    				user.setDistributor(distributor);
-    				customerService.save(user);
-    				return "redirect:/home";
-    			}
-    		}
-    	}
-    	
-        return "redirect:/distributorPage?distr="+distr;
-    }
+    }       
 }

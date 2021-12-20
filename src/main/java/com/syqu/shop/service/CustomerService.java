@@ -7,4 +7,5 @@ public interface CustomerService {
     void login(String username, String password);
     Customer findByEmail(String email);
     Customer findById(long id);
+	void saveDistributor(Customer customer);
 }

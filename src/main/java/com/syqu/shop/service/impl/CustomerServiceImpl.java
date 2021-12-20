@@ -37,6 +37,11 @@ public class CustomerServiceImpl implements CustomerService {
     	customer.setPasswordConfirm(sp); 
         customerRepository.save(customer);
     }
+    
+    @Override
+    public void saveDistributor(Customer customer) { 
+        customerRepository.save(customer);
+    }
 
     @Override
     public void login(String email, String password) {

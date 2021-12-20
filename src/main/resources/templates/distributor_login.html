@@ -10,19 +10,9 @@
 
     <div class="container">
 
-		<h3 th:text="#{registration.sign_in}"></h3>
-	   	<form action="/distributorRegister" method="post" target="_blank">
-			 <div class="form-group">
-	         	<input class="form-control" type="hidden" th:value="${distr}" id="distr" name="distr"/>
-	         </div>
-	  		<input type="submit" value="Register">
-		</form>
-
-		<br><b>OR</b><br><br>
-		
 		<form autocomplete="off" th:action="@{/distributorLogin}" class="form-signin" method="POST">
             <fieldset>
-                <h3 th:text="#{login.sign_in_long}"></h3>
+                <h3 th:text="#{login.sign_in}"></h3>
                 <label th:text="#{user.email}"></label>
                 <div class="form-group">
                     <input type="text" name="email" class="form-control input-lg" placeholder="" required="true" autofocus="true"/>
