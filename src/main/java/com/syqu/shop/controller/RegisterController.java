@@ -8,6 +8,7 @@ import com.syqu.shop.validator.CustomerValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,14 +23,17 @@ public class RegisterController {
     private final CustomerService customerService;
     private final CustomerValidator customerValidator;
     private final DistributorService distributorService;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
     public RegisterController(CustomerService customerService, 
     		CustomerValidator customerValidator,
-    		DistributorService distributorService) {
+    		DistributorService distributorService,
+    		BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.customerService = customerService;
         this.customerValidator = customerValidator;
         this.distributorService = distributorService;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     @GetMapping("/register")
@@ -113,7 +117,7 @@ public class RegisterController {
     		Customer user = customerService.findByEmail(email);
     		if(user != null && password != null)
     		{
-    			if(user.getPasswordConfirm().equals(password))
+    		  	if (bCryptPasswordEncoder.matches(password, user.getPassword()))
     			{
     				customerService.login(email, password);
     				user.setDistributor(distributor);

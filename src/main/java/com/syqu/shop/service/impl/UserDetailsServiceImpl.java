@@ -40,7 +40,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
             }
             logger.debug(String.format("Customer with e-mail: %s and password: %s created.", user.getEmail(), user.getPassword()));
-            return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), authorities);
+            return new org.springframework.security.core.userdetails.User(
+            		user.getEmail(), 
+            		user.getPassword(), 
+            		authorities);
         }else{
             throw new UsernameNotFoundException("Email " + email + " not found!");
         }
