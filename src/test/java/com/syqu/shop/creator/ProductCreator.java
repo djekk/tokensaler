@@ -1,6 +1,5 @@
 package com.syqu.shop.creator;
 
-import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 

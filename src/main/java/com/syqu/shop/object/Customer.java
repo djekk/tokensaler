@@ -6,13 +6,17 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.math.BigDecimal;
 
 @Data
 @Entity
 @Table(name = "customer")
 public class Customer {
 
+	public Customer() {
+        super();
+        this.enabled=false;
+    }
+	
     @Column(name = "id")
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -35,5 +39,8 @@ public class Customer {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "distributor_id", nullable = true)
     private Distributor distributor;
+    
+    @Column(name = "enabled")
+    private boolean enabled;
 
 }

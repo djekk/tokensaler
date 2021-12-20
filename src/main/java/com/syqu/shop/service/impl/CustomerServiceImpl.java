@@ -1,8 +1,12 @@
 package com.syqu.shop.service.impl;
 
 import com.syqu.shop.service.CustomerService;
+import com.syqu.shop.service.UserAlreadyExistException;
 import com.syqu.shop.object.Customer;
+import com.syqu.shop.object.VerificationToken;
 import com.syqu.shop.repository.CustomerRepository;
+import com.syqu.shop.repository.VerificationTokenRepository;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,13 +25,20 @@ public class CustomerServiceImpl implements CustomerService {
     private final UserDetailsService userDetailsService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final AuthenticationManager authenticationManager;
+    private final VerificationTokenRepository tokenRepository;
 
     @Autowired
-    public CustomerServiceImpl(CustomerRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder, UserDetailsService userDetailsService, AuthenticationManager authenticationManager) {
+    public CustomerServiceImpl(
+    		CustomerRepository userRepository, 
+    		BCryptPasswordEncoder bCryptPasswordEncoder, 
+    		UserDetailsService userDetailsService, 
+    		AuthenticationManager authenticationManager,
+    		VerificationTokenRepository tokenRepository) {
         this.customerRepository = userRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.userDetailsService = userDetailsService;
         this.authenticationManager = authenticationManager;
+        this.tokenRepository = tokenRepository;
     }
 
     @Override
@@ -65,5 +76,45 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public Customer findById(long id) {
         return customerRepository.findById(id);
+    }
+    
+    @Override
+    public Customer registerNewUserAccount(Customer userDto) throws UserAlreadyExistException {
+      
+        Customer user = new Customer();
+        user.setEmail(userDto.getEmail());
+        user.setPassword(userDto.getPassword());
+        user.setPasswordConfirm(userDto.getPasswordConfirm());
+        user.setDistributor(userDto.getDistributor());
+    
+        return customerRepository.save(user);
+    }
+
+    private boolean emailExist(String email) {
+        return customerRepository.findByEmail(email) != null;
+    }
+    
+    @Override
+    public Customer getCustomer(String verificationToken) {
+    	Customer user = tokenRepository.findByToken(verificationToken).getCustomer();
+        return user;
+    }
+    
+    @Override
+    public VerificationToken getVerificationToken(String VerificationToken) {
+        return tokenRepository.findByToken(VerificationToken);
+    }
+    
+    @Override
+    public void saveRegisteredUser(Customer user) {
+    	customerRepository.save(user);
+    }
+    
+    @Override
+    public void createVerificationToken(Customer user, String token) {
+        VerificationToken myToken = new VerificationToken();
+        myToken.setToken(token);
+        myToken.setCustomer(user);
+        tokenRepository.save(myToken);
     }
 }

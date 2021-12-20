@@ -11,3 +11,4 @@ public interface DistributorRepository extends JpaRepository<Distributor, Long> 
     Distributor findByEmail(String email);
     Distributor findById(long id);
 }
+

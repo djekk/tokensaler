@@ -40,9 +40,4 @@ public class DistributorServiceImpl implements DistributorService {
     public Distributor findById(long id) {
         return distributorRepository.findById(id);
     }
-    
-    @Override
-    public List<Distributor> findAll() {
-        return distributorRepository.findAll();
-    }
 }

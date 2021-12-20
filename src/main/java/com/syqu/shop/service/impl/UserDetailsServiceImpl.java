@@ -31,7 +31,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String email){
         Customer user = userRepository.findByEmail(email);
-
+        
+        boolean accountNonExpired = true;
+        boolean credentialsNonExpired = true;
+        boolean accountNonLocked = true;
+        
         if (user != null) {
             Set<GrantedAuthority> authorities = new HashSet<>();
             if (Objects.equals(email, "admin@example.com")) {
@@ -40,10 +44,15 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
             }
             logger.debug(String.format("Customer with e-mail: %s and password: %s created.", user.getEmail(), user.getPassword()));
+            
             return new org.springframework.security.core.userdetails.User(
-            		user.getEmail(), 
-            		user.getPassword(), 
-            		authorities);
+                    user.getEmail(), 
+                    user.getPassword(), 
+                    user.isEnabled(), 
+                    accountNonExpired, 
+                    credentialsNonExpired, 
+                    accountNonLocked, 
+                    authorities);
         }else{
             throw new UsernameNotFoundException("Email " + email + " not found!");
         }
