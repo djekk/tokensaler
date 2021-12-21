@@ -11,9 +11,6 @@ import com.syqu.shop.validator.CustomerValidator;
 
 import java.util.Calendar;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,13 +19,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.context.request.WebRequest;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -119,29 +112,7 @@ public class RegisterController {
     	}
     	return "error/404";
     }  
-    /*
-    @PostMapping("/user/registration")
-    public ModelAndView registerUserAccount(
-      @ModelAttribute("user") @Valid Customer userDto, 
-      HttpServletRequest request, Errors errors) { 
-        
-        try {
-            Customer registered = customerService.registerNewUserAccount(userDto);
-            
-            String appUrl = request.getContextPath();
-            eventPublisher.publishEvent(new OnRegistrationCompleteEvent(registered, 
-            	appUrl));
-        } catch (UserAlreadyExistException uaeEx) {
-            ModelAndView mav = new ModelAndView("registration", "user", userDto);
-            mav.addObject("message", "An account for that username/email already exists.");
-            return mav;
-        } catch (RuntimeException ex) {
-            return new ModelAndView("emailError", "user", userDto);
-        }
 
-        return new ModelAndView("successRegister", "user", userDto);
-    }
-    */
     @GetMapping("/regitrationConfirm")
     public String confirmRegistration
       (@ModelAttribute("token") String token, Model model) {
