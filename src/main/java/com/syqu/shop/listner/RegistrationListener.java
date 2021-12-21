@@ -12,12 +12,13 @@ import com.syqu.shop.event.OnRegistrationCompleteEvent;
 import com.syqu.shop.mail.MailSender;
 import com.syqu.shop.object.Customer;
 import com.syqu.shop.service.CustomerService;
+import com.syqu.shop.service.VerificationTokenService;
 
 @Component
 public class RegistrationListener implements  ApplicationListener<OnRegistrationCompleteEvent> {
  
     @Autowired
-    private CustomerService service;
+    private VerificationTokenService verificationTokenService;
  
     @Override
     public void onApplicationEvent(OnRegistrationCompleteEvent event) {
@@ -25,9 +26,9 @@ public class RegistrationListener implements  ApplicationListener<OnRegistration
     }
 
     private void confirmRegistration(OnRegistrationCompleteEvent event) {
-        Customer user = event.getCustomer();
+        Customer customer = event.getCustomer();
         String token = UUID.randomUUID().toString();
-        service.createVerificationToken(user, token);
+        verificationTokenService.createVerificationToken(customer, token);
         
         String confirmationUrl = event.getAppUrl() + "/regitrationConfirm?token=" + token;
         String body = "You registered successfully.Please activate account."
@@ -35,7 +36,7 @@ public class RegistrationListener implements  ApplicationListener<OnRegistration
                 
         System.out.println(confirmationUrl);
         
-        MailSender.sendSimpleEmail(user.getEmail(), 
+        MailSender.sendSimpleEmail(customer.getEmail(), 
         		"Registration Confirmation", 
         		body);
     }

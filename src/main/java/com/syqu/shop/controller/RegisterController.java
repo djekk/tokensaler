@@ -7,6 +7,7 @@ import com.syqu.shop.object.VerificationToken;
 import com.syqu.shop.service.CustomerService;
 import com.syqu.shop.service.DistributorService;
 import com.syqu.shop.service.UserAlreadyExistException;
+import com.syqu.shop.service.VerificationTokenService;
 import com.syqu.shop.validator.CustomerValidator;
 
 import java.util.Calendar;
@@ -30,6 +31,7 @@ public class RegisterController {
     private final CustomerService customerService;
     private final CustomerValidator customerValidator;
     private final DistributorService distributorService;
+    private final VerificationTokenService verificationTokenService;
     private final ApplicationEventPublisher eventPublisher;
     
     private String appUrl = "http://localhost:8080";
@@ -38,10 +40,12 @@ public class RegisterController {
     		CustomerValidator customerValidator,
     		DistributorService distributorService,
     		BCryptPasswordEncoder bCryptPasswordEncoder,
+    		VerificationTokenService verificationTokenService, 
     		ApplicationEventPublisher eventPublisher) {
         this.customerService = customerService;
         this.customerValidator = customerValidator;
         this.distributorService = distributorService;
+        this.verificationTokenService = verificationTokenService;
         this.eventPublisher = eventPublisher;
     }
 
@@ -62,25 +66,25 @@ public class RegisterController {
     @PostMapping("/register")
     public String register(
     		@ModelAttribute("distr") String distr,
-    		@ModelAttribute("userForm") Customer userForm, 
+    		@ModelAttribute("userForm") Customer customerForm, 
     		BindingResult bindingResult, 
     		RedirectAttributes redirectAttributes) 
     {
     	Distributor distributor = distributorService.findByUsername(distr);
     	if( distributor != null )
     	{
-    		customerValidator.validate(userForm, bindingResult);
+    		customerValidator.validate(customerForm, bindingResult);
 	        
 	        if (bindingResult.hasErrors()) {
 	            logger.error(String.valueOf(bindingResult.getFieldError()));
 	            return "register";
 	        }   
 	
-	        userForm.setDistributor(distributor);
+	       customerForm.setDistributor(distributor);
 	   
 	        Customer registered;
 			try {
-				registered = customerService.registerNewUserAccount(userForm);				
+				registered = customerService.registerNewUserAccount(customerForm);				
 			   
 		            eventPublisher.publishEvent(new OnRegistrationCompleteEvent(registered, 
 		            	appUrl));
@@ -90,7 +94,7 @@ public class RegisterController {
 			   	return "error/404";   
 			}
 	
-	        redirectAttributes.addFlashAttribute("email", userForm.getEmail());
+	        redirectAttributes.addFlashAttribute("email", customerForm.getEmail());
 	        
 	        return "redirect:/registration";
     	}
@@ -113,26 +117,26 @@ public class RegisterController {
     public String confirmRegistration
       (@ModelAttribute("token") String token, Model model) {
         
-        VerificationToken verificationToken = customerService.getVerificationToken(token);
+        VerificationToken verificationToken = verificationTokenService.getVerificationToken(token);
         if (verificationToken == null) {
             model.addAttribute("error", "Sorry invalid token");
             return "redirect:/login?error=" + "Sorry invalid token";
         }
         
-        Customer user = verificationToken.getCustomer();
+        Customer customer = verificationToken.getCustomer();
         Calendar cal = Calendar.getInstance();
         if ((verificationToken.getExpiryDate().getTime() - cal.getTime().getTime()) <= 0) {
             model.addAttribute("error", "Sorry token was expired");
             return "redirect:/login?error=" + "Sorry token was expired";
         } 
                 
-        user.setEnabled(true); 
+        customer.setEnabled(true); 
         
-        String psw = user.getPassword();
+        String psw = customer.getPassword();
         
-        customerService.save(user); 
+        customerService.save(customer); 
                       
-        customerService.login(user.getEmail(), psw);
+        customerService.login(customer.getEmail(), psw);
         
         return "redirect:/home";
     }

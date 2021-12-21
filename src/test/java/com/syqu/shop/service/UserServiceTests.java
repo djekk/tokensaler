@@ -29,13 +29,13 @@ public class UserServiceTests {
 
     @Test
     public void saveUserTests(){
-        Customer user = UserCreator.createTestUser();
-        userService.save(user);
-        when(userService.findById(user.getId())).thenReturn(user);
-        Customer found = userService.findById(user.getId());
+        Customer customer = UserCreator.createTestUser();
+        userService.save(customer);
+        when(userService.findById(customer.getId())).thenReturn(customer);
+        Customer found = userService.findById(customer.getId());
 
         assertThat(found).isNotNull();
-        assertThat(found.getEmail()).isEqualTo(user.getEmail());
+        assertThat(found.getEmail()).isEqualTo(customer.getEmail());
     }
 
     @Test

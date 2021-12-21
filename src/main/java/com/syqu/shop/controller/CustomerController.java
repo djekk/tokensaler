@@ -20,16 +20,16 @@ public class CustomerController {
 
     @GetMapping("/user")
     public String userPanel(Principal principal, Model model){
-        Customer user = customerService.findByEmail(principal.getName());
+        Customer customer = customerService.findByEmail(principal.getName());
 
-        if (user != null) 
+        if (customer != null) 
         {
-            model.addAttribute("user", user);
+            model.addAttribute("user", customer);
             
             String distributorUsername = "";
-            if(user.getDistributor() != null)
+            if(customer.getDistributor() != null)
             {
-            	distributorUsername = user.getDistributor().getUsername();
+            	distributorUsername = customer.getDistributor().getUsername();
             }
             model.addAttribute("distributorUsername", distributorUsername);
         }else {

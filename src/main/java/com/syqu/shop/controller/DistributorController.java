@@ -1,7 +1,5 @@
 package com.syqu.shop.controller;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -18,7 +16,7 @@ import com.syqu.shop.service.DistributorService;
 
 @Controller
 public class DistributorController {
-    private static final Logger logger = LoggerFactory.getLogger(DistributorController.class);
+   // private static final Logger logger = LoggerFactory.getLogger(DistributorController.class);
 
     private final DistributorService distributorService;
     private final CustomerService customerService;
@@ -105,14 +103,14 @@ public class DistributorController {
     	Distributor distributor = distributorService.findByUsername(distr);
     	if( distributor != null )
     	{    		
-    		Customer user = customerService.findByEmail(email);
-    		if(user != null && password != null)
+    		Customer customer = customerService.findByEmail(email);
+    		if(customer != null && password != null)
     		{
-    		  	if (bCryptPasswordEncoder.matches(password, user.getPassword()))
+    		  	if (bCryptPasswordEncoder.matches(password, customer.getPassword()))
     			{
     				customerService.login(email, password);
-    				user.setDistributor(distributor);
-    				customerService.saveDistributor(user);
+    				customer.setDistributor(distributor);
+    				customerService.update(customer);
     				return "redirect:/home";
     			}
     		}

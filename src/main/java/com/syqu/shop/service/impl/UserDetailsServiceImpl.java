@@ -2,8 +2,6 @@ package com.syqu.shop.service.impl;
 
 import com.syqu.shop.object.Customer;
 import com.syqu.shop.repository.CustomerRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -19,7 +17,7 @@ import java.util.Set;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
-    private static final Logger logger = LoggerFactory.getLogger(UserDetailsServiceImpl.class);
+ //   private static final Logger logger = LoggerFactory.getLogger(UserDetailsServiceImpl.class);
     private final CustomerRepository userRepository;
 
     @Autowired
@@ -30,25 +28,24 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String email){
-        Customer user = userRepository.findByEmail(email);
+        Customer customer = userRepository.findByEmail(email);
         
         boolean accountNonExpired = true;
         boolean credentialsNonExpired = true;
         boolean accountNonLocked = true;
         
-        if (user != null) {
+        if (customer != null) {
             Set<GrantedAuthority> authorities = new HashSet<>();
             if (Objects.equals(email, "admin@example.com")) {
                 authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
             }else {
                 authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
             }
-            logger.debug(String.format("Customer with e-mail: %s and password: %s created.", user.getEmail(), user.getPassword()));
-            
+
             return new org.springframework.security.core.userdetails.User(
-                    user.getEmail(), 
-                    user.getPassword(), 
-                    user.isEnabled(), 
+            		customer.getEmail(), 
+            		customer.getPassword(), 
+            		customer.isEnabled(), 
                     accountNonExpired, 
                     credentialsNonExpired, 
                     accountNonLocked, 

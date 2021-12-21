@@ -17,7 +17,7 @@ public class StartupData implements CommandLineRunner {
     private final CustomerService userService;
     private final ProductService productService;
     private final DistributorService distributorService;
-    private static final Logger logger = LoggerFactory.getLogger(StartupData.class);
+   // private static final Logger logger = LoggerFactory.getLogger(StartupData.class);
 
     @Autowired
     public StartupData(CustomerService userService, ProductService productService, DistributorService distributorService) {
@@ -35,13 +35,14 @@ public class StartupData implements CommandLineRunner {
     }
 
     private void userAccount(){
-        Customer user = new Customer();
+        Customer customer = new Customer();
 
-        user.setEmail("user@example.com");
-        user.setPassword("user");
-        user.setPasswordConfirm("user");
-      //  user.setDistributor(distributorService.findByUsername("distributor"));
-        userService.save(user);
+        customer.setEmail("user@example.com");
+        customer.setPassword("user");        
+        customer.setPasswordConfirm("user");
+        customer.setEnabled(true);
+      //  customer.setDistributor(distributorService.findByUsername("distributor"));
+        userService.save(customer);
     }
 
     private void adminAccount(){
@@ -50,6 +51,7 @@ public class StartupData implements CommandLineRunner {
         admin.setEmail("admin@example.com");
         admin.setPassword("admin");
         admin.setPasswordConfirm("admin");
+        admin.setEnabled(true);
 
         userService.save(admin);
     }
@@ -59,14 +61,14 @@ public class StartupData implements CommandLineRunner {
         final String IMAGE_URL = "images/token.png";
         final String DESCRIPTION = "";
 
-        Product product1 = new Product();
+        Product product = new Product();
 
-        product1.setName(NAME);
-        product1.setImageUrl(IMAGE_URL);
-        product1.setDescription(DESCRIPTION);
+        product.setName(NAME);
+        product.setImageUrl(IMAGE_URL);
+        product.setDescription(DESCRIPTION);
 
 
-        productService.save(product1);
+        productService.save(product);
 
     }
     

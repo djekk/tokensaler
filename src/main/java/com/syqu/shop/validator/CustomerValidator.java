@@ -24,7 +24,7 @@ public class CustomerValidator implements Validator {
 
     @Override
     public void validate(Object o, Errors errors) {
-        Customer user = (Customer) o;
+        Customer customer = (Customer) o;
 
         //Username and password can't me empty or contain whitespace
         //ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username", "error.not_empty");
@@ -32,18 +32,18 @@ public class CustomerValidator implements Validator {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "error.not_empty");
 
         //Email can't be duplicated
-        if (userService.findByEmail(user.getEmail()) != null){
+        if (userService.findByEmail(customer.getEmail()) != null){
             errors.rejectValue("email", "register.error.duplicated.email");
         }
         //Password must have at least 8 characters and max 32
-        if (user.getPassword().length() < 8) {
+        if (customer.getPassword().length() < 8) {
             errors.rejectValue("password", "register.error.password.less_8");
         }
-        if (user.getPassword().length() > 32){
+        if (customer.getPassword().length() > 32){
             errors.rejectValue("password", "register.error.password.over_32");
         }
         //Password must be the same as the confirmation password
-        if (!user.getPasswordConfirm().equals(user.getPassword())) {
+        if (!customer.getPasswordConfirm().equals(customer.getPassword())) {
             errors.rejectValue("passwordConfirm", "register.error.diff_password");
         }
 
