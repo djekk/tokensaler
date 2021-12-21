@@ -9,6 +9,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
 
 import com.syqu.shop.event.OnRegistrationCompleteEvent;
+import com.syqu.shop.mail.MailSender;
 import com.syqu.shop.object.Customer;
 import com.syqu.shop.service.CustomerService;
 
@@ -18,9 +19,6 @@ public class RegistrationListener implements  ApplicationListener<OnRegistration
     @Autowired
     private CustomerService service;
  
-    @Autowired
-    private JavaMailSender mailSender;
-
     @Override
     public void onApplicationEvent(OnRegistrationCompleteEvent event) {
         this.confirmRegistration(event);
@@ -31,16 +29,14 @@ public class RegistrationListener implements  ApplicationListener<OnRegistration
         String token = UUID.randomUUID().toString();
         service.createVerificationToken(user, token);
         
-        String recipientAddress = user.getEmail();
-        String subject = "Registration Confirmation";
         String confirmationUrl = event.getAppUrl() + "/regitrationConfirm?token=" + token;
-        
+        String body = "You registered successfully.Please activate account."
+        		+ "\r\n" + confirmationUrl;
+                
         System.out.println(confirmationUrl);
         
-        SimpleMailMessage email = new SimpleMailMessage();
-        email.setTo(recipientAddress);
-        email.setSubject(subject);
-        email.setText("You registered successfully. We will send you a confirmation message to your email account." + "\r\n" + confirmationUrl);
-        mailSender.send(email);
+        MailSender.sendSimpleEmail(user.getEmail(), 
+        		"Registration Confirmation", 
+        		body);
     }
 }

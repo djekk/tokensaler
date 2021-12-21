@@ -11,19 +11,16 @@ import java.util.List;
 @Controller
 public class HomeController {
     private final ProductService productService;
-  //  private final CustomerService customerService;
 
     @Autowired
-    public HomeController(ProductService productService/*, CustomerService customerService*/) {
+    public HomeController(ProductService productService) {
         this.productService = productService;
-   //     this.customerService = customerService;
     }
 
     @GetMapping(value = {"/","/index","/home"})
     public String home(Model model){
         model.addAttribute("products", getAllProducts());
-        
-   //     MyMailSender.sendEmail();
+
         return "home";
     }
 

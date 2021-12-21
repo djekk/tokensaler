@@ -89,10 +89,6 @@ public class RegisterController {
 				// TODO Auto-generated catch block
 			   	return "error/404";   
 			}
-            
-	        ///customerService.save(userForm);
-	     //   customerService.login(userForm.getEmail(), userForm.getPasswordConfirm());
-	       // return "redirect:/home";
 	
 	        redirectAttributes.addFlashAttribute("email", userForm.getEmail());
 	        
@@ -135,9 +131,7 @@ public class RegisterController {
         String psw = user.getPassword();
         
         customerService.save(user); 
-              
-        System.out.println("*****psw=" + psw);
-        
+                      
         customerService.login(user.getEmail(), psw);
         
         return "redirect:/home";
