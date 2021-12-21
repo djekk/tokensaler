@@ -21,19 +21,21 @@
         </div>
     </div>
 
-    <div th:if="${products.isEmpty()}" class="col-3">
+    <div th:if="${products.isEmpty()}">
         <h2 th:text="#{cart.empty}"></h2>
     </div>
 
     <br>
-    <a th:href="@{'/cart/clear/'}" class="col-md-1">
+    <a th:href="@{'/cart/clear/'}">
         <button type="button" class="btn btn-info" th:text="#{cart.clear}"></button>
     </a>
 
     <br>
-    <div class="row">
-        <h3 th:text="#{cart.total} + ' ' + ${totalPrice}"></h3>">
-        <a th:href="@{'/cart/checkout'}" class="col-md-1">
+    <div>
+    <br>
+        <h3 th:text="#{cart.total} + ' ' + ${totalPrice}"></h3>
+        <br>
+        <a th:href="@{'/cart/checkout'}">
             <button type="button" class="btn btn-success" th:text="#{cart.checkout}"></button>
         </a>
     </div>

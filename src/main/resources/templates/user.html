@@ -9,7 +9,7 @@
     <div th:replace="fragments/header :: header"></div>
 
     <div class="container">
-        <h4 th:text="#{user.title}"></h4>
+        <h3 id="CustDet" th:text="#{user.title}"></h3>
         <br>
 
         <h5 th:text="#{user.email} + ': ' + ${user.getEmail()}"></h5>
