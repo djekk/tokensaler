@@ -9,10 +9,10 @@ import java.util.Map;
 
 @Service
 public interface ShoppingCartService {
-    void addProduct(Product product);
-    void removeProduct(Product product);
+    void addProduct(String serialnumber, Integer quantity);
+    void removeProduct(String serialnumber);
     void clearProducts();
-    Map<Product, Integer> productsInCart();
+    Map<String, Integer> productsInCart();
     BigDecimal totalPrice();
     void cartCheckout();
 }

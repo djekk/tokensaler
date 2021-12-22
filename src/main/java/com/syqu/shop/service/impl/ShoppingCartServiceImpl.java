@@ -22,24 +22,27 @@ www.github.com/reljicd/spring-boot-shopping-cart
 @Scope(value = WebApplicationContext.SCOPE_SESSION, proxyMode = ScopedProxyMode.TARGET_CLASS)
 @Transactional
 public class ShoppingCartServiceImpl implements ShoppingCartService {
-    private Map<Product, Integer> cart = new LinkedHashMap<>();
+    private Map<String, Integer> cart = new LinkedHashMap<>();
 
     @Override
-    public void addProduct(Product product) {
-        if (cart.containsKey(product)){
-            cart.replace(product, cart.get(product) + 1);
+    public void addProduct(String serialnumber, Integer quantity) {
+        if (cart.containsKey(serialnumber)){
+        	if(cart.get(serialnumber) + quantity > 50)
+        		cart.replace(serialnumber, 50);
+        	else
+        		cart.replace(serialnumber, cart.get(serialnumber) + quantity);
         }else{
-            cart.put(product, 1);
+            cart.put(serialnumber, quantity);
         }
     }
 
     @Override
-    public void removeProduct(Product product) {
-        if (cart.containsKey(product)) {
-            if (cart.get(product) > 1)
-                cart.replace(product, cart.get(product) - 1);
-            else if (cart.get(product) == 1) {
-                cart.remove(product);
+    public void removeProduct(String serialnumber) {
+        if (cart.containsKey(serialnumber)) {
+            if (cart.get(serialnumber) > 1)
+                cart.replace(serialnumber, cart.get(serialnumber) - 1);
+            else if (cart.get(serialnumber) == 1) {
+                cart.remove(serialnumber);
             }
         }
     }
@@ -50,7 +53,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     }
 
     @Override
-    public Map<Product, Integer> productsInCart() {
+    public Map<String, Integer> productsInCart() {
         return Collections.unmodifiableMap(cart);
     }
 

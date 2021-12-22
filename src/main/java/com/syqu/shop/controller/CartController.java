@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class CartController {
@@ -31,23 +33,22 @@ public class CartController {
         return "cart";
     }
 
-    @GetMapping("/cart/add/{id}")
-    public String addProductToCart(@PathVariable("id") long id){
-        Product product = productService.findById(id);
-        if (product != null){
-            shoppingCartService.addProduct(product);
-            logger.debug(String.format("Product with id: %s added to shopping cart.", id));
-        }
+    @PostMapping("/cart/add")
+    public String addProductToCart(
+    		@ModelAttribute("serialnumber") String serialnumber,
+    		@ModelAttribute("quantity") Integer quantity)
+    {
+       shoppingCartService.addProduct(serialnumber, quantity);
+
         return "redirect:/home";
     }
 
-    @GetMapping("/cart/remove/{id}")
-    public String removeProductFromCart(@PathVariable("id") long id){
-        Product product = productService.findById(id);
-        if (product != null){
-            shoppingCartService.removeProduct(product);
-            logger.debug(String.format("Product with id: %s removed from shopping cart.", id));
-        }
+    @GetMapping("/cart/remove/{serialnumber}")
+    public String removeProductFromCart(
+    		@PathVariable("serialnumber") String serialnumber){
+    
+    	shoppingCartService.removeProduct(serialnumber);
+
         return "redirect:/cart";
     }
 

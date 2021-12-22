@@ -14,7 +14,8 @@ public class MailSender {
 	@Autowired
     private static JavaMailSender javaMailSender;
 	    
-	public static void sendSimpleEmail(String recipientAddress,
+	public static void sendSimpleEmail(
+			String recipientAddress,
 			String subject,
 			String body) {
 		
