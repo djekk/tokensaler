@@ -17,12 +17,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class CartController {
     private static final Logger logger = LoggerFactory.getLogger(CartController.class);
     private final ShoppingCartService shoppingCartService;
-    private final ProductService productService;
-
     @Autowired
     public CartController(ShoppingCartService shoppingCartService, ProductService productService) {
         this.shoppingCartService = shoppingCartService;
-        this.productService = productService;
     }
 
     @GetMapping("/cart")
