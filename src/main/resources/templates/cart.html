@@ -13,12 +13,13 @@
         <h2 th:text="#{cart.title}"></h2>
         <div class="card" th:each="product : ${products.entrySet()}">                   
             <h3 th:text="#{product.serialnumber} + ': ' + ${product.getKey()}"></h3>
-            <h4 th:text="#{product.quantity} + ': ' + ${product.getValue()}"></h4> 
-            <button class="btn">
-                <a th:href="@{'/cart/removeOneQuantity/{serialnumber}'(serialnumber=${product.getKey()})}" ><i class="fas fa-minus"></i></a>
-                <a th:href="@{'/cart/addOneQuantity/{serialnumber}'(serialnumber=${product.getKey()})}" ><i class="fas fa-plus"></i></a>
-            </button> 
-
+            <div class="text-align:center;">
+	            <h4 style="display:inline;" th:text="#{product.quantity} + ': ' + ${product.getValue()}"></h4>
+	            <button class="style="float:right; display:block;"">
+	                <a th:href="@{'/cart/removeOneQuantity/{serialnumber}'(serialnumber=${product.getKey()})}" ><i class="fas fa-minus"></i></a>
+	                <a th:href="@{'/cart/addOneQuantity/{serialnumber}'(serialnumber=${product.getKey()})}" ><i class="fas fa-plus"></i></a>
+	            </button>
+            </div> 
             <br>
         </div>
     </div>
