@@ -10,7 +10,8 @@ import java.util.Map;
 @Service
 public interface ShoppingCartService {
     void addProduct(String serialnumber, Integer quantity);
-    void removeProduct(String serialnumber);
+    void removeOneQuantity(String serialnumber);
+    void addOneQuantity(String serialnumber);
     void clearProducts();
     Map<String, Integer> productsInCart();
     BigDecimal totalPrice();

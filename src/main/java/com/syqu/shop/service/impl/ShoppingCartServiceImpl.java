@@ -36,7 +36,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     }
 
     @Override
-    public void removeProduct(String serialnumber) {
+    public void removeOneQuantity(String serialnumber) {
         if (cart.containsKey(serialnumber)) {
             if (cart.get(serialnumber) > 1)
                 cart.replace(serialnumber, cart.get(serialnumber) - 1);
@@ -44,6 +44,17 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
                 cart.remove(serialnumber);
             }
         }
+    }
+    
+    @Override
+    public void addOneQuantity(String serialnumber) {
+    	 if (cart.containsKey(serialnumber))
+    	 {
+         	if(cart.get(serialnumber) == 50)
+         		cart.replace(serialnumber, 50);
+         	else
+         		cart.replace(serialnumber, cart.get(serialnumber) + 1);
+    	 }
     }
 
     @Override

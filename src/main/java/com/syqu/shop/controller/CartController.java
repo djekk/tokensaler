@@ -3,6 +3,9 @@ package com.syqu.shop.controller;
 import com.syqu.shop.service.ShoppingCartService;
 import com.syqu.shop.object.Product;
 import com.syqu.shop.service.ProductService;
+
+import java.security.Principal;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +26,7 @@ public class CartController {
     }
 
     @GetMapping("/cart")
-    public String cart(Model model){
+    public String cart(Principal principal, Model model){
         model.addAttribute("products", shoppingCartService.productsInCart());
         model.addAttribute("totalPrice", shoppingCartService.totalPrice());
 
@@ -40,11 +43,20 @@ public class CartController {
         return "redirect:/home";
     }
 
-    @GetMapping("/cart/remove/{serialnumber}")
-    public String removeProductFromCart(
+    @GetMapping("/cart/removeOneQuantity/{serialnumber}")
+    public String removeOneQuantity(
     		@PathVariable("serialnumber") String serialnumber){
     
-    	shoppingCartService.removeProduct(serialnumber);
+    	shoppingCartService.removeOneQuantity(serialnumber);
+
+        return "redirect:/cart";
+    }
+    
+    @GetMapping("/cart/addOneQuantity/{serialnumber}")
+    public String addOneQuantity(
+    		@PathVariable("serialnumber") String serialnumber){
+    
+    	shoppingCartService.addOneQuantity(serialnumber);
 
         return "redirect:/cart";
     }
