@@ -1,26 +1,31 @@
 package com.syqu.shop.object;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-
 @Data
 @Entity
+@NoArgsConstructor
 @Table(name = "order_product")
 public class OrderProduct {
 
     @Column(name = "id")
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+	private long id;
     
-    @EmbeddedId
-    @JsonIgnore
-    private OrderProductPK pk;
+	@ManyToOne(targetEntity = Order.class, fetch = FetchType.EAGER)
+	@JoinColumn(name = "order_id", nullable = false)
+	private Order order;
+
+    @Column
+    @NotEmpty
+    @NotNull
+    private String serialnumber;
            
     @Column
     @NotEmpty
@@ -29,9 +34,8 @@ public class OrderProduct {
     
     // default constructor
     public OrderProduct(Order order, String serialnumber, Integer quantity) {
-        pk = new OrderProductPK();
-        pk.setOrder(order);
-        pk.setSerialnumber(serialnumber);
+        this.order = order;
+        this.serialnumber = serialnumber;
         this.quantity = quantity;
     }
 }

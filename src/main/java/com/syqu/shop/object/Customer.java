@@ -36,7 +36,7 @@ public class Customer {
     @NotNull
     private String passwordConfirm;
     
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "distributor_id", nullable = true)
     private Distributor distributor;
     
@@ -45,7 +45,9 @@ public class Customer {
     
     @Override
     public String toString() {
-        return "customer[ email=" + email + "]";
+        return "customer[email=" + email + 
+        		", distributor=" + distributor 
+        		+ "]";
     }
 
 }

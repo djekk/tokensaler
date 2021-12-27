@@ -35,11 +35,11 @@ public class Order {
 	@NotNull
 	private String status;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(targetEntity = Distributor.class, fetch = FetchType.EAGER)
 	@JoinColumn(name = "distributor_id", nullable = false)
 	private Distributor distributor;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(targetEntity = Customer.class, fetch = FetchType.EAGER)
 	@JoinColumn(name = "customer_id", nullable = false)
 	private Customer customer;
 	
@@ -49,13 +49,14 @@ public class Order {
 	    return BigDecimal.ZERO;
 	}
 	
-	@JsonManagedReference
-	@OneToMany(mappedBy = "pk.order")
-	@Valid
-	private List<OrderProduct> orderProducts = new ArrayList<>();
+	@OneToMany(mappedBy = "order", fetch = FetchType.EAGER)
+	private List<OrderProduct> orderProducts;
 	
     @Override
     public String toString() {
-        return "Order was dateCreated [status=" + status + " ]";
+        return "order [dateCreated=" + dateCreated + 
+        		", distributor=" + distributor +
+        		", customer=" + customer
+        		+ "]";
     }
 }
