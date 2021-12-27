@@ -51,6 +51,14 @@
             <artifactId>h2</artifactId>
             <scope>runtime</scope>
         </dependency>
+
+        <!-- postgresql
+<dependency>
+	<groupId>org.postgresql</groupId>
+	<artifactId>postgresql</artifactId>
+	<scope>runtime</scope>
+</dependency>
+-->
         <!-- Spring Boot Thymeleaf -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

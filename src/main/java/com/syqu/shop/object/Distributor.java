@@ -2,6 +2,9 @@ package com.syqu.shop.object;
 
 import lombok.Data;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -28,6 +31,11 @@ public class Distributor {
     @NotNull
     private String email;
     
-  //  @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer", cascade = CascadeType.ALL)
-  //  private Set<Customer> customers = new HashSet<>();
+    @Override
+    public String toString() {
+        return "distributor[username=" + username + ", email=" + email + "]";
+    }
+    
+ //   @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer", cascade = CascadeType.ALL)
+   // private Set<Customer> customers = new HashSet<>();
 }

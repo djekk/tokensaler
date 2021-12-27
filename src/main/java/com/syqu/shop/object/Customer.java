@@ -42,5 +42,10 @@ public class Customer {
     
     @Column(name = "enabled")
     private boolean enabled;
+    
+    @Override
+    public String toString() {
+        return "customer[ email=" + email + "]";
+    }
 
 }
