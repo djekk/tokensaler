@@ -116,7 +116,7 @@ public class StartupData implements CommandLineRunner {
             		op = new OrderProduct(order, 
             				"23423423", 3);
             		
-            		op.setData("fghfghfghfg");
+            		op.setData("23452352345345");
             		
             		op = orderProductService.create(op); 
             	}

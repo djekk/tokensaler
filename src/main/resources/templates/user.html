@@ -31,7 +31,7 @@
 			  <tr>
 			   	<td th:text="${order.getDistributor()}"></td>
 			    <td th:text="${order.getCustomer()}"></td>
-			    <td th:text="${order.getDateCreated()}"></td>
+			    <td th:text="${order.getDateOrdered()}"></td>
 			    <td th:text="${order.getStatus()}"></td>
 			    <td th:text="${order.getTotalPrice()}"></td>
 			    <td><a th:href="@{'orderDetails/' + ${order.getToken()}}" ><i class="fas fa-wrench"></i></a></td>

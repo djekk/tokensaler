@@ -1,19 +1,14 @@
 package com.syqu.shop.object;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.*;
-import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import lombok.Data;
 
 @Data
@@ -29,7 +24,7 @@ public class Order {
 	@NotEmpty
 	@NotNull
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDate dateOrdered;
+    private LocalDateTime dateOrdered;
 	
 	@NotEmpty
 	@NotNull

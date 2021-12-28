@@ -1,6 +1,7 @@
 package com.syqu.shop.service.impl;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -39,7 +40,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Order create(Order order) {
     	order.setToken(UUID.randomUUID().toString());
-        order.setDateOrdered(LocalDate.now());
+        order.setDateOrdered(LocalDateTime.now());
         order.setStatus("NEW");
         return orderRepository.save(order);
     }
