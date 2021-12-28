@@ -1,12 +1,15 @@
 package com.syqu.shop.service.impl;
 
 import java.time.LocalDate;
+import java.util.Optional;
+import java.util.UUID;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.syqu.shop.object.Customer;
 import com.syqu.shop.object.Order;
 import com.syqu.shop.repository.OrderRepository;
 import com.syqu.shop.service.OrderService;
@@ -22,20 +25,27 @@ public class OrderServiceImpl implements OrderService {
 	        this.orderRepository = orderRepository;
 	}	    
 
+
+    @Override
+    public Order findByToken(String token) {
+        return orderRepository.findByToken(token);
+    }
+	
 	@Override
-    public Iterable<Order> getAllOrders() {
-        return this.orderRepository.findAll();
+    public Iterable<Order> getOrdersByCustomer(Customer customer) {
+        return orderRepository.findByCustomer(customer);
     }
 	
     @Override
     public Order create(Order order) {
+    	order.setToken(UUID.randomUUID().toString());
         order.setDateCreated(LocalDate.now());
         order.setStatus("NEW");
-        return this.orderRepository.save(order);
+        return orderRepository.save(order);
     }
 
     @Override
     public void update(Order order) {
-        this.orderRepository.save(order);
+        orderRepository.save(order);
     }
 }

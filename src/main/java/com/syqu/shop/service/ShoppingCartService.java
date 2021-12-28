@@ -14,6 +14,6 @@ public interface ShoppingCartService {
     void addOneQuantity(String serialnumber);
     void clearProducts();
     Map<String, Integer> productsInCart();
-    BigDecimal totalPrice();
+    BigDecimal totalPrice(BigDecimal pricePerToken);
     void cartCheckout();
 }

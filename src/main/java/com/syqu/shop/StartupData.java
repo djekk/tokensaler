@@ -11,12 +11,7 @@ import com.syqu.shop.service.DistributorService;
 import com.syqu.shop.service.OrderProductService;
 import com.syqu.shop.service.OrderService;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.math.BigDecimal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -105,6 +100,7 @@ public class StartupData implements CommandLineRunner {
             	Order order = new Order();
             	order.setCustomer(customer);
             	order.setDistributor(distributor);
+            	order.setTotalPrice(BigDecimal.valueOf(8));
             	orderService.create(order); 
     
                	System.out.println("order.getDistributor="+order.getDistributor().toString());
@@ -113,26 +109,47 @@ public class StartupData implements CommandLineRunner {
             		OrderProduct op = new OrderProduct(order, 
             				"gdfgdfg", 1);
             		
-            		OrderProduct op1 = orderProductService.create(op); 
+            		op.setData("fghfghfghfg");
+            		
+            		op = orderProductService.create(op); 
+            		
+            		op = new OrderProduct(order, 
+            				"23423423", 3);
+            		
+            		op.setData("fghfghfghfg");
+            		
+            		op = orderProductService.create(op); 
             	}
-            	            	
-         
+            	           
             	
-            	for(Order or : orderService.getAllOrders())
+            	Order order2 = new Order();
+            	order2.setCustomer(customer);
+            	order2.setDistributor(distributor);
+            	order2.setTotalPrice(BigDecimal.valueOf(17));
+            	orderService.create(order2); 
+    
+               	System.out.println("order.getDistributor="+order.getDistributor().toString());
+            	
             	{
-            		System.out.println("order.getDistributor="+or.getDistributor());
+            		OrderProduct op = new OrderProduct(order2, 
+            				"tyutkhjk", 10);
             		
-            		for(OrderProduct orp1 : or.getOrderProducts())
-            		{
-            			System.out.println("------orp1="+orp1.toString());  
-            		}
+            		op.setData("uuuu");
             		
-            		for(OrderProduct orp : orderProductService.findByOrder(or))
-            		{
-            			System.out.println("orp="+orp.toString());                		
-            		}
+            		op = orderProductService.create(op); 
             		
-            	}   
+            		op = new OrderProduct(order2, 
+            				"yutyuyuyt", 2);
+            		
+            		op.setData("dddddddd");
+            		
+            		op = orderProductService.create(op); 
+            	}
+              
+        		for(OrderProduct orp : orderProductService.findByOrder(order2))
+        		{
+        			System.out.println("**************orp="+orp.toString());                		
+            	} 
             }         
         }
 
@@ -143,6 +160,7 @@ public class StartupData implements CommandLineRunner {
 
     	distributor.setUsername("distributor");
         distributor.setEmail("distributor@example.com");
+        distributor.setPrice(BigDecimal.valueOf(2));
 
         distributorService.save(distributor);
     }

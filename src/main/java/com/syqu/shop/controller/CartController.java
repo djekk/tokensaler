@@ -5,11 +5,11 @@ import com.syqu.shop.object.Customer;
 import com.syqu.shop.object.Distributor;
 import com.syqu.shop.object.Order;
 import com.syqu.shop.object.OrderProduct;
-import com.syqu.shop.object.Product;
 import com.syqu.shop.service.CustomerService;
+import com.syqu.shop.service.OrderProductService;
 import com.syqu.shop.service.OrderService;
-import com.syqu.shop.service.ProductService;
 
+import java.math.BigDecimal;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,23 +33,38 @@ public class CartController {
     private final ShoppingCartService shoppingCartService;
     private final CustomerService customerService;
     private final OrderService orderService;
+    private final OrderProductService orderProductService;
         
     @Autowired
     public CartController(
     		ShoppingCartService shoppingCartService, 
     		CustomerService customerService,
-    		OrderService orderService) {
+    		OrderService orderService,
+    		OrderProductService orderProductService) {
         this.shoppingCartService = shoppingCartService;
         this.customerService = customerService; 
-        this.orderService = orderService; 
+        this.orderService = orderService;
+        this.orderProductService = orderProductService;
     }
 
     @GetMapping("/cart")
-    public String cart(Model model){
-        model.addAttribute("products", shoppingCartService.productsInCart());
-        model.addAttribute("totalPrice", shoppingCartService.totalPrice());
-
-        return "cart";
+    public String cart(Principal principal, Model model){
+    	
+    	if (principal != null) 
+    	{	    		
+	    	Customer customer = customerService.findByEmail(principal.getName());
+	        if (customer != null) 
+	        {            
+	        	Distributor distributor = customer.getDistributor();
+	            if(distributor != null)
+	            {
+	            	model.addAttribute("products", shoppingCartService.productsInCart());
+	                model.addAttribute("totalPrice", getTotalOrderPrice(distributor));
+	                return "cart";
+	            }
+	        }
+    	}
+        return "login";
     }
 
     @PostMapping("/cart/add")
@@ -86,6 +101,16 @@ public class CartController {
 
         return "redirect:/cart";
     }
+    
+    private BigDecimal getTotalOrderPrice(Distributor distributor)
+    {
+    	if(distributor != null)
+        {
+    		return shoppingCartService.totalPrice(distributor.getPrice());
+        }
+    	
+    	return BigDecimal.ZERO;
+    }
 
     @GetMapping("/cart/checkout")
     public String cartCheckout(Principal principal){
@@ -100,24 +125,20 @@ public class CartController {
             	Order order = new Order();
             	order.setCustomer(customer);
             	order.setDistributor(distributor);
-           // 	orderService.create(order);
-           	
-            	List<OrderProduct> orderProducts = new ArrayList<OrderProduct>();
-            			
-            	Map<String, Integer> mapOrderProducts = shoppingCartService.productsInCart();
+            	order.setTotalPrice(getTotalOrderPrice(distributor));
+            	orderService.create(order);
             	
-            	for (Map.Entry<String, Integer> entry : mapOrderProducts.entrySet())
+            	for (Map.Entry<String, Integer> entry : shoppingCartService.productsInCart().entrySet())
             	{
             		OrderProduct op = new OrderProduct(order, entry.getKey(), entry.getValue());
-            		orderProducts.add(op);
+            		op = orderProductService.create(op); 
             	}
-            	            	
-           	 	order.setOrderProducts(orderProducts);
-           	 	orderService.create(order);
            	 	           	 	           	 	
                 shoppingCartService.cartCheckout();            	
             }         
         }
+        
+        //TODO  thank you message
 
         return "redirect:/cart";
     }

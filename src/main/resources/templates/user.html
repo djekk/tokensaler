@@ -14,7 +14,33 @@
 
         <h5 th:text="#{user.email} + ': ' + ${user.getEmail()}"></h5>
         <h5 th:text="#{user.distributor} + ': ' + ${distributorUsername}"></h5>
-    </div>
+    
+	    <div class="center" th:if="${!orders.isEmpty()}" sec:authorize="isAuthenticated()">
+	
+	    	<table style="width:100%">
+			  <tr>
+			  	<th>Distributor</th>
+			  	<th>Customer</th>
+			    <th>Date Ordered</th>
+			    <th>Status</th>
+			    <th>Price</th>
+			    <th th:text="#{order_details.title}"></th>
+			  </tr>
+			  
+			  <div class="card" th:each="order : ${orders}">
+			  <tr>
+			   	<td th:text="${order.getDistributor()}"></td>
+			    <td th:text="${order.getCustomer()}"></td>
+			    <td th:text="${order.getDateCreated()}"></td>
+			    <td th:text="${order.getStatus()}"></td>
+			    <td th:text="${order.getTotalPrice()}"></td>
+			    <td><a th:href="@{'orderDetails/' + ${order.getToken()}}" ><i class="fas fa-wrench"></i></a></td>
+			  </tr>
+			  </div>
+			</table>
+	    	</div>
+	   	</div>
+	 </div>
 
     <div th:replace="fragments/footer :: footer"></div>
 

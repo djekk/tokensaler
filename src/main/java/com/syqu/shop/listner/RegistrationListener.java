@@ -4,14 +4,11 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
 
 import com.syqu.shop.event.OnRegistrationCompleteEvent;
 import com.syqu.shop.mail.MailSender;
 import com.syqu.shop.object.Customer;
-import com.syqu.shop.service.CustomerService;
 import com.syqu.shop.service.VerificationTokenService;
 
 @Component

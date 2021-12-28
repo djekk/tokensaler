@@ -18,19 +18,22 @@ public class OrderProduct {
     @GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
     
-	@ManyToOne(targetEntity = Order.class, fetch = FetchType.EAGER)
-	@JoinColumn(name = "order_id", nullable = false)
-	private Order order;
-
     @Column
-    @NotEmpty
-    @NotNull
-    private String serialnumber;
-           
+    private String data;
+    
     @Column
     @NotEmpty
     @NotNull
 	private Integer quantity;
+    
+    @Column
+    @NotEmpty
+    @NotNull
+    private String serialnumber;
+               
+	@ManyToOne(targetEntity = Order.class, fetch = FetchType.EAGER)
+	@JoinColumn(name = "order_id", nullable = false)
+	private Order order;
     
     // default constructor
     public OrderProduct(Order order, String serialnumber, Integer quantity) {

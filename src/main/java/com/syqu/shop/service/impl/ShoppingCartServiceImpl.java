@@ -1,5 +1,6 @@
 package com.syqu.shop.service.impl;
 
+import com.syqu.shop.object.OrderProduct;
 import com.syqu.shop.service.ShoppingCartService;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
@@ -8,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -66,13 +68,17 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     public Map<String, Integer> productsInCart() {
         return Collections.unmodifiableMap(cart);
     }
-
+    
     @Override
-    public BigDecimal totalPrice() {
-        return BigDecimal.ZERO;//cart.entrySet().stream()
-                //.map(k -> k.getKey().getPrice().multiply(BigDecimal.valueOf(k.getValue()))).sorted()
-                //.reduce(BigDecimal::add)
-                //.orElse(BigDecimal.ZERO);
+    public BigDecimal totalPrice(BigDecimal pricePerToken) {
+    	
+    	Integer totalQuantity = 0; 
+    	for (Integer quantity : productsInCart().values())
+    	{
+    		totalQuantity += quantity;    		
+    	}
+    	
+    	return pricePerToken.multiply(new BigDecimal(totalQuantity));
     }
 
     @Override

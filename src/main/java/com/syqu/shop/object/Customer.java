@@ -45,9 +45,7 @@ public class Customer {
     
     @Override
     public String toString() {
-        return "customer[email=" + email + 
-        		", distributor=" + distributor 
-        		+ "]";
+        return  email;
     }
 
 }

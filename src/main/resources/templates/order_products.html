@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/header :: header-css">
+</head>
+
+<body>
+
+    <div th:replace="fragments/header :: header"></div>
+
+	    <div class="container">
+	        <h4 th:text="#{order_details.title}"></h4>
+	        <br>
+	    
+		    <div class="center" th:if="${!orderProducts.isEmpty()}" sec:authorize="isAuthenticated()">
+		
+		    	<table style="width:100%">
+				  <tr>
+				  	<th>Serial#</th>
+				  	<th>Quantity</th>
+				    <th>Data</th>			    
+				  </tr>
+				  
+				  <div class="card" th:each="orderProduct : ${orderProducts}">
+					  <tr>
+					   	<td th:text="${orderProduct.getSerialnumber()}"></td>
+					    <td th:text="${orderProduct.getQuantity()}"></td>
+					    <td th:text="${orderProduct.getData()}"></td>
+					  </tr>
+				  </div>
+				</table>
+					    
+		   	</div>
+		</div>
+ 	</div>
+    
+    <div th:replace="fragments/footer :: footer"></div>
+
+</body>
+
+</html>

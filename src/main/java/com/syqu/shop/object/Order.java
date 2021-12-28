@@ -43,14 +43,16 @@ public class Order {
 	@JoinColumn(name = "customer_id", nullable = false)
 	private Customer customer;
 	
-	@Transient
-	public BigDecimal getTotalOrderPrice() {
-	   
-	    return BigDecimal.ZERO;
-	}
+	@NotEmpty
+	@NotNull
+	private BigDecimal totalPrice;
 	
 	@OneToMany(mappedBy = "order", fetch = FetchType.EAGER)
 	private List<OrderProduct> orderProducts;
+	
+	@NotEmpty
+	@NotNull
+	private String token;
 	
     @Override
     public String toString() {

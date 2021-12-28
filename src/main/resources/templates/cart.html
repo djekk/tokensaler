@@ -10,7 +10,12 @@
 
 <div class="container">
     <div th:if="${!products.isEmpty()}">
-        <h2 th:text="#{cart.title}"></h2>
+	     <div class="row">
+	        <h2 th:text="#{cart.title}"></h2>
+	        <a th:href="@{'/cart/clear/'}" class="col-md-1">
+		        <button type="button" class="btn btn-info" th:text="#{cart.clear}"></button>
+		    </a>
+	    </div>
         <div class="card" th:each="product : ${products.entrySet()}">                   
             <h3 th:text="#{product.serialnumber} + ': ' + ${product.getKey()}"></h3>
             <div class="text-align:center;">
@@ -27,15 +32,10 @@
     <div th:if="${products.isEmpty()}">
         <h2 th:text="#{cart.empty}"></h2>
     </div>
-
-    <br>
-    <a th:href="@{'/cart/clear/'}" class="col-md-1">
-        <button type="button" class="btn btn-info" th:text="#{cart.clear}"></button>
-    </a>
-
+ 
     <br>
     <div class="row">
-        <h3 th:text="#{cart.total} + ' ' + ${totalPrice}"></h3>
+        <h3 th:text="#{cart.total} + ' ' + ${totalPrice} + ' EUR'"></h3>
         <a th:href="@{'/cart/checkout'}" class="col-md-1">
             <button type="button" class="btn btn-success" th:text="#{cart.checkout}"></button>
         </a>

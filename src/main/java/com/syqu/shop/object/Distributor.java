@@ -2,6 +2,7 @@ package com.syqu.shop.object;
 
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -31,9 +32,13 @@ public class Distributor {
     @NotNull
     private String email;
     
+    @Column(name = "price")
+    @NotNull
+    private BigDecimal price;
+    
     @Override
     public String toString() {
-        return "distributor[username=" + username + ", email=" + email + "]";
+        return username;
     }
     
  //   @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer", cascade = CascadeType.ALL)
