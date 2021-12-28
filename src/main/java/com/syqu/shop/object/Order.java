@@ -28,8 +28,8 @@ public class Order {
 
 	@NotEmpty
 	@NotNull
-	@JsonFormat(pattern = "dd/MM/yyyy")
-    private LocalDate dateCreated;
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDate dateOrdered;
 	
 	@NotEmpty
 	@NotNull
@@ -56,9 +56,6 @@ public class Order {
 	
     @Override
     public String toString() {
-        return "order [dateCreated=" + dateCreated + 
-        		", distributor=" + distributor +
-        		", customer=" + customer
-        		+ "]";
+        return "order [" + token + "]";
     }
 }

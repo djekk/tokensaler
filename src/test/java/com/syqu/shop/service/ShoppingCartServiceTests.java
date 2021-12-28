@@ -1,8 +1,5 @@
 package com.syqu.shop.service;
 
-import com.syqu.shop.creator.ProductCreator;
-import com.syqu.shop.object.Product;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -32,45 +29,30 @@ public class ShoppingCartServiceTests {
 
     @Test
     public void addProductToCartTests(){
-        Map<Product, Integer> cart = new LinkedHashMap<>();
-        Product product = ProductCreator.createTestProduct();
+        Map<String, Integer> cart = new LinkedHashMap<>();
+        
+        String serial1 = "Not Bad Trainers";
 
         when(shoppingCartService.productsInCart()).thenReturn(cart);
 
-        cart.put(product, 1);
+        cart.put(serial1, 1);
 
-        assertThat(shoppingCartService.productsInCart()).containsKey(product);
+        assertThat(shoppingCartService.productsInCart()).containsKey(serial1);
     }
 
     @Test
     public void addTwoTheSameProductsToCartTests(){
-        Map<Product, Integer> cart = new LinkedHashMap<>();
-        Product product = ProductCreator.createTestProduct();
-        Product product2 = ProductCreator.createTestProduct();
+        Map<String, Integer> cart = new LinkedHashMap<>();
 
         when(shoppingCartService.productsInCart()).thenReturn(cart);
 
-        product.setName("Not Bad Trainers");
-        product2.setName("Nice Shoes");
+        String serial1 = ("Not Bad Trainers");
+        String serial2 = ("Nice Shoes");
 
-        cart.put(product, 1);
-        cart.put(product2, 1);
+        cart.put(serial1, 1);
+        cart.put(serial2, 1);
 
-        assertThat(shoppingCartService.productsInCart()).containsKey(product);
-        assertThat(shoppingCartService.productsInCart()).containsKey(product2);
-    }
-
-    @Test
-    public void removeProductFromCartTests(){
-        Map<Product, Integer> cart = new LinkedHashMap<>();
-        Product product = ProductCreator.createTestProduct();
-
-        when(shoppingCartService.productsInCart()).thenReturn(cart);
-
-        cart.put(product, 1);
-        assertThat(shoppingCartService.productsInCart()).containsKey(product);
-
-        cart.remove(product);
-        assertThat(shoppingCartService.productsInCart()).doesNotContainKey(product);
+        assertThat(shoppingCartService.productsInCart()).containsKey(serial1);
+        assertThat(shoppingCartService.productsInCart()).containsKey(serial2);
     }
 }

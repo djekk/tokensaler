@@ -1,6 +1,9 @@
 package com.syqu.shop.controller;
 
 import com.syqu.shop.service.ShoppingCartService;
+import com.syqu.shop.service.CustomerService;
+import com.syqu.shop.service.OrderProductService;
+import com.syqu.shop.service.OrderService;
 import com.syqu.shop.service.ProductService;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,9 +27,12 @@ public class CartControllerMvcTests {
 
     @MockBean
     ShoppingCartService shoppingCartService;
-
     @MockBean
-    ProductService productService;
+	CustomerService customerService;
+    @MockBean
+	OrderService orderService;
+    @MockBean
+	OrderProductService orderProductService;
 
     @Before
     public void setUp() {
@@ -34,7 +40,11 @@ public class CartControllerMvcTests {
         viewResolver.setPrefix("/WEB-INF/jsp/view/");
         viewResolver.setSuffix(".jsp");
 
-        mockMvc = MockMvcBuilders.standaloneSetup(new CartController(shoppingCartService, productService))
+        mockMvc = MockMvcBuilders.standaloneSetup(new CartController(
+        		shoppingCartService, 
+        		customerService,
+        		orderService,
+        		orderProductService))
                 .setViewResolvers(viewResolver)
                 .build();
     }

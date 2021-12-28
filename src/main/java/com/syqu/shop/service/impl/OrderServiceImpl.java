@@ -39,7 +39,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Order create(Order order) {
     	order.setToken(UUID.randomUUID().toString());
-        order.setDateCreated(LocalDate.now());
+        order.setDateOrdered(LocalDate.now());
         order.setStatus("NEW");
         return orderRepository.save(order);
     }
