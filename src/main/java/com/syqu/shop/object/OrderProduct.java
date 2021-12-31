@@ -18,7 +18,7 @@ public class OrderProduct {
     @GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
     
-    @Column
+    @Column(length = 4000)
     private String data;
     
     @Column

@@ -36,4 +36,19 @@ public class OrderProductServiceImpl implements OrderProductService {
     public void update(OrderProduct orderProduct) {
         this.orderProductRepository.save(orderProduct);
     }
+
+	@Override
+	public OrderProduct findById(long id) {
+		return this.orderProductRepository.findById(id);
+	}
+
+	@Override
+	public OrderProduct getOrderProduct() {
+		return this.orderProductRepository.getOrderProduct();
+	}
+
+	@Override
+	public long isOrderCompleted(long order_id) {
+		return this.orderProductRepository.isOrderCompleted(order_id);
+	}
 }

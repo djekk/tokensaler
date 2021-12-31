@@ -1,8 +1,6 @@
 package com.syqu.shop.service.impl;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Optional;
 import java.util.UUID;
 
 import javax.transaction.Transactional;
@@ -49,4 +47,10 @@ public class OrderServiceImpl implements OrderService {
     public void update(Order order) {
         orderRepository.save(order);
     }
+
+
+	@Override
+	public Order findById(long id) {
+		return orderRepository.findById(id);
+	}
 }
