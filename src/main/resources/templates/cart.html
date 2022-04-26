@@ -34,12 +34,14 @@
     </div>
  
     <br>
-    <div class="row">
-        <h3 th:text="#{cart.total} + ' ' + ${totalPrice} + ' EUR'"></h3>
-        <a th:href="@{'/cart/checkout'}" class="col-md-1">
-            <button type="button" class="btn btn-success" th:text="#{cart.checkout}"></button>
-        </a>
-    </div>
+    <div th:if="${!products.isEmpty()}">
+	    <div class="row">    
+	        <h3 th:text="#{cart.total} + ' ' + ${totalPrice} + ' EUR'"></h3>
+	        <a th:href="@{'/cart/checkout'}" class="col-md-1">
+	            <button type="button" class="btn btn-success" th:text="#{cart.checkout}"></button>
+	        </a>
+	    </div>
+	</div>
 </div>
 
 <div th:replace="fragments/footer :: footer"></div>
